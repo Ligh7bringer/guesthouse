@@ -14,3 +14,7 @@ C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\asse
 C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\assessment2-cs.csproj.GenerateResource.Cache
 C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\assessment2-cs.exe
 C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\assessment2-cs.pdb
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\AddCustomerWindow.g.cs
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\AddCustomerWindow.baml
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\AmendCustomerWindow.g.cs
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\AmendCustomerWindow.baml

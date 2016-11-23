@@ -28,16 +28,21 @@ namespace cw2_csharp
 
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
+           //TO DO
+        }
+
+        private void cbox_cust_Loaded(object sender, RoutedEventArgs e)
+        {
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
-            string sqlQuery = "INSERT INTO customer VALUES (4, @name, @address)";
-            SqlCommand cmd = new SqlCommand(sqlQuery, con);
-            cmd.Parameters.AddWithValue("name", txtbx_name.Text);
-            cmd.Parameters.AddWithValue("address", txtbx_address.Text);           
             con.Open();
-            int i = cmd.ExecuteNonQuery();
-            con.Close();
-            MessageBox.Show(i.ToString() + "rows modified");
-            this.Close();
+            SqlCommand com = new SqlCommand(
+                "SELECT name FROM customer", con);
+            SqlDataReader sdr = com.ExecuteReader();
+            while (sdr.Read())
+            {
+                this.cbox_cust.Items.Add(sdr["name"]);
+            }
+            sdr.Close();
         }
     }
 }

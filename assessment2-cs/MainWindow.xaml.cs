@@ -1,4 +1,5 @@
-﻿using System;
+﻿using assessment2_cs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,8 +28,20 @@ namespace cw2_csharp
 
         private void btn_addbooking_Click(object sender, RoutedEventArgs e)
         {
-            AddBookingWindow bwindow = new AddBookingWindow();
-            bwindow.ShowDialog();
+            AddBookingWindow bWindow = new AddBookingWindow();
+            bWindow.ShowDialog();
+        }
+
+        private void btn_amendcust_Click(object sender, RoutedEventArgs e)
+        {
+            AmendCustomerWindow amendCust = new AmendCustomerWindow();
+            amendCust.ShowDialog();
+        }
+
+        private void btn_addcust_Click(object sender, RoutedEventArgs e)
+        {
+            AddCustomerWindow addCust = new AddCustomerWindow();
+            addCust.ShowDialog();
         }
     }
 }
