@@ -1,0 +1,15 @@
+﻿<Window x:Class="cw2_csharp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:cw2_csharp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="600">
+    <Grid>
+        <Button x:Name="btn_addbooking" Content="Add a booking" HorizontalAlignment="Left" Margin="228,103,0,0" VerticalAlignment="Top" Width="111" Height="60" Click="btn_addbooking_Click"/>
+        <Button x:Name="btn_amenbooking_Copy" Content="Amend a booking" HorizontalAlignment="Left" Margin="228,189,0,0" VerticalAlignment="Top" Width="111" Height="60" Click="btn_addbooking_Click"/>
+
+    </Grid>
+</Window>
+   

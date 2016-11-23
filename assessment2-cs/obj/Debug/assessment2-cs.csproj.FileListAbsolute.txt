@@ -1,0 +1,16 @@
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\bin\Debug\assessment2-cs.exe.config
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\bin\Debug\assessment2-cs.exe
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\bin\Debug\assessment2-cs.pdb
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\assessment2-cs.csprojResolveAssemblyReference.cache
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\AddBookingWindow.g.cs
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\MainWindow.g.cs
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\App.g.cs
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\assessment2-cs_MarkupCompile.cache
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\assessment2-cs_MarkupCompile.lref
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\AddBookingWindow.baml
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\MainWindow.baml
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\assessment2-cs.g.resources
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\assessment2_cs.Properties.Resources.resources
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\assessment2-cs.csproj.GenerateResource.Cache
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\assessment2-cs.exe
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\assessment2-cs.pdb
