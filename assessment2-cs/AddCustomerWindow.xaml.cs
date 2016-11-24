@@ -27,7 +27,7 @@ namespace assessment2_cs
 
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
             string sqlQuery = "INSERT INTO customer (name, address) VALUES (@name, @address)";
             SqlCommand cmd = new SqlCommand(sqlQuery, con);
             cmd.Parameters.AddWithValue("name", txtbx_name.Text);
@@ -35,7 +35,13 @@ namespace assessment2_cs
             con.Open();
             int i = cmd.ExecuteNonQuery();
             con.Close();
-            MessageBox.Show(i.ToString() + " rows inserted");
+            if(i != 0)
+            {
+                MessageBox.Show("Customer added successfully.");
+            } else
+            {
+                MessageBox.Show("Something went wrong");
+            }
             this.Close();
         }
 

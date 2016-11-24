@@ -33,7 +33,7 @@ namespace cw2_csharp
 
         private void cbox_cust_Loaded(object sender, RoutedEventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
             con.Open();
             SqlCommand com = new SqlCommand(
                 "SELECT name FROM customer", con);

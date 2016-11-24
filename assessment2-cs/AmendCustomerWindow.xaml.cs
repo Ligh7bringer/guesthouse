@@ -27,7 +27,7 @@ namespace assessment2_cs
 
         private void cbox_cust_Loaded(object sender, RoutedEventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
             con.Open();
             SqlCommand com = new SqlCommand(
                 "SELECT name FROM customer", con);
@@ -43,7 +43,7 @@ namespace assessment2_cs
         private void cbox_cust_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {            
             String query = "SELECT * FROM customer WHERE name='" + cbox_cust.SelectedValue + "'";
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
             con.Open();
             SqlCommand com = new SqlCommand(query, con);
             SqlDataReader sdr = com.ExecuteReader();
@@ -59,7 +59,7 @@ namespace assessment2_cs
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
             String query = "UPDATE customer SET name=@name, address=@address WHERE reference_num=" + refnum;
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
             SqlCommand com = new SqlCommand(query, con);
             com.Parameters.AddWithValue("name", txtbox_name.Text);
             com.Parameters.AddWithValue("address", txtbx_address.Text);
@@ -75,6 +75,25 @@ namespace assessment2_cs
             {
                 MessageBox.Show("Something went wrong.");                
             }
+        }
+
+        private void btn_remove_Click(object sender, RoutedEventArgs e)
+        {
+            String query = "DELETE FROM customer WHERE reference_num='" + refnum + "'";
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
+            SqlCommand com = new SqlCommand(query, con);
+            con.Open();
+            int result = com.ExecuteNonQuery();
+            con.Close();
+            if(result != 0) // TO DO: AND THEY HAVE NO BOOKINGS
+            {
+                MessageBox.Show("Customer successfully deleted.");
+            }
+            else
+            {
+                MessageBox.Show("Something went wrong.");
+            }            
+            this.Close();
         }
     }
 }
