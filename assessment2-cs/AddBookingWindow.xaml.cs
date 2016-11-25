@@ -12,9 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
+using assessment2_cs;
+using System.Globalization;
 
-
-namespace cw2_csharp
+namespace assessment2_cs
 {
     /// <summary>
     /// Interaction logic for AddBookingWindow.xaml
@@ -26,23 +27,67 @@ namespace cw2_csharp
             InitializeComponent();
         }
 
+        DbConnection con = new DbConnection();
+
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
-           //TO DO
+            con.OpenConnection();
+            String refnum = "";
+            int result;
+
+            try
+            {
+                String query = "SELECT * FROM customer WHERE name='" + cbox_cust.SelectedValue + "'";
+                string queryInsert = "INSERT INTO booking (arrival_date, departure_date, cust_ref) VALUES (@arrivald, @departd, @cust_ref)";
+                SqlDataReader sdr = con.DataReader(query);
+                while (sdr.Read())
+                {
+                    refnum = sdr["reference_num"].ToString();
+                }
+                sdr.Close();
+
+                SqlCommand qInsert = new SqlCommand(queryInsert, con.Con);
+                qInsert.Parameters.AddWithValue("arrivald", txtbox_arrivald.Text);
+                qInsert.Parameters.AddWithValue("departd", txtbx_dapartd.Text);
+                qInsert.Parameters.AddWithValue("cust_ref", refnum);
+
+                result = qInsert.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("An error occured: " + ex.Message);
+                throw ex;
+            }
+            finally
+            {
+                MessageBox.Show("Booking added successfully.");
+                con.CloseConnection();
+                this.Close();
+            }
+
         }
 
         private void cbox_cust_Loaded(object sender, RoutedEventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
-            con.Open();
-            SqlCommand com = new SqlCommand(
-                "SELECT name FROM customer", con);
-            SqlDataReader sdr = com.ExecuteReader();
-            while (sdr.Read())
+            String query = "SELECT name FROM customer";
+            con.OpenConnection();
+            try
             {
-                this.cbox_cust.Items.Add(sdr["name"]);
+                SqlDataReader sdr = con.DataReader(query);
+                while (sdr.Read())
+                {
+                    this.cbox_cust.Items.Add(sdr["name"]);
+                }
+                con.CloseConnection();
             }
-            sdr.Close();
+            catch (SqlException ex)
+            {
+                MessageBox.Show("An error occured: " + ex.Message);
+            }
+            finally
+            {
+                con.CloseConnection();
+            }
         }
     }
 }

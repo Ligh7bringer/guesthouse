@@ -25,48 +25,82 @@ namespace assessment2_cs
             InitializeComponent();
         }
 
+        DbConnection con = new DbConnection();
+
         private void cbox_cust_Loaded(object sender, RoutedEventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
-            con.Open();
-            SqlCommand com = new SqlCommand(
-                "SELECT name FROM customer", con);
-            SqlDataReader sdr = com.ExecuteReader();
-            while (sdr.Read())
+            con.OpenConnection();
+            try
             {
-                this.cbox_cust.Items.Add(sdr["name"]);
+                String query = "SELECT name FROM customer";
+                SqlDataReader sdr = con.DataReader(query);
+                while (sdr.Read())
+                {
+                    this.cbox_cust.Items.Add(sdr["name"]);
+                }
+                sdr.Close();
             }
-            sdr.Close();
+            catch (SqlException ex)
+            {
+                MessageBox.Show("An error occured: " + ex.Message);
+            }
+            finally
+            {
+                con.CloseConnection();
+            }
+
         }
 
         String refnum;
         private void cbox_cust_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {            
             String query = "SELECT * FROM customer WHERE name='" + cbox_cust.SelectedValue + "'";
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
-            con.Open();
-            SqlCommand com = new SqlCommand(query, con);
-            SqlDataReader sdr = com.ExecuteReader();
-            while (sdr.Read())
+            con.OpenConnection();
+            try
             {
-                this.txtbox_name.Text = sdr["name"].ToString();
-                this.txtbx_address.Text = sdr["address"].ToString();
-                refnum = sdr["reference_num"].ToString();
+                SqlDataReader sdr = con.DataReader(query);
+                while (sdr.Read())
+                {
+                    this.txtbox_name.Text = sdr["name"].ToString();
+                    this.txtbx_address.Text = sdr["address"].ToString();
+                    refnum = sdr["reference_num"].ToString();
+                }
+                sdr.Close();
             }
-            sdr.Close();
+            catch (SqlException ex)
+            {
+                MessageBox.Show("An error occured: " + ex.Message);
+            }
+            finally
+            {
+                con.CloseConnection();
+            }
         }
 
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
-            String query = "UPDATE customer SET name=@name, address=@address WHERE reference_num=" + refnum;
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
-            SqlCommand com = new SqlCommand(query, con);
-            com.Parameters.AddWithValue("name", txtbox_name.Text);
-            com.Parameters.AddWithValue("address", txtbx_address.Text);
-            con.Open();
-            int result = com.ExecuteNonQuery();
-            con.Close();
-            if(result != 0)
+            int result;
+            String query = "UPDATE customer SET name=@name, address=@address WHERE reference_num=@refnum";
+            con.OpenConnection();
+            try
+            {
+                SqlCommand com = new SqlCommand(query, con.Con);
+                com.Parameters.AddWithValue("name", txtbox_name.Text);
+                com.Parameters.AddWithValue("address", txtbx_address.Text);
+                com.Parameters.AddWithValue("refnum", refnum);          
+                result = com.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("An error occured: " + ex.Message);
+            }
+            finally
+            {
+                MessageBox.Show("Details for user successfully amended.");
+                con.CloseConnection();
+            }
+
+            /*if(result != 0)
             {
                 MessageBox.Show("Details for user successfully amended.");
                 this.Close();
@@ -74,25 +108,38 @@ namespace assessment2_cs
             else
             {
                 MessageBox.Show("Something went wrong.");                
-            }
+            } */
+            this.Close();
         }
 
         private void btn_remove_Click(object sender, RoutedEventArgs e)
         {
-            String query = "DELETE FROM customer WHERE reference_num='" + refnum + "'";
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
-            SqlCommand com = new SqlCommand(query, con);
-            con.Open();
-            int result = com.ExecuteNonQuery();
-            con.Close();
-            if(result != 0) // TO DO: AND THEY HAVE NO BOOKINGS
+            String query = "DELETE FROM customer WHERE reference_num=@refnum";
+            con.OpenConnection();
+            try
+            {
+                SqlCommand com = new SqlCommand(query, con.Con);
+                com.Parameters.AddWithValue("refnum", refnum);            
+                com.ExecuteNonQuery();                
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("An error occured: " + ex.Message);
+            }
+            finally
+            {
+                MessageBox.Show("Customer successfully deleted.");
+                con.CloseConnection();
+            }
+
+            /*if (result != 0) // TO DO: AND THEY HAVE NO BOOKINGS
             {
                 MessageBox.Show("Customer successfully deleted.");
             }
             else
             {
                 MessageBox.Show("Something went wrong.");
-            }            
+            }            */
             this.Close();
         }
     }

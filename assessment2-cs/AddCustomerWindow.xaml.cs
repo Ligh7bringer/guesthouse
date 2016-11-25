@@ -27,21 +27,34 @@ namespace assessment2_cs
 
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\database\DB.mdf;Integrated Security=True;Connect Timeout=30");
-            string sqlQuery = "INSERT INTO customer (name, address) VALUES (@name, @address)";
-            SqlCommand cmd = new SqlCommand(sqlQuery, con);
-            cmd.Parameters.AddWithValue("name", txtbx_name.Text);
-            cmd.Parameters.AddWithValue("address", txtbx_address.Text);
-            con.Open();
-            int i = cmd.ExecuteNonQuery();
-            con.Close();
-            if(i != 0)
+            int result;
+            DbConnection con = new DbConnection();
+            con.OpenConnection();
+            try
+            {
+                string query = "INSERT INTO customer(name, address) VALUES (@name, @address)";
+                SqlCommand com = new SqlCommand(query, con.Con);
+                com.Parameters.AddWithValue("name", txtbx_name.Text);
+                com.Parameters.AddWithValue("address", txtbx_address.Text);
+                result = com.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("An error occured: " + ex.Message);
+            }
+            finally
+            {
+                MessageBox.Show("Customer added successfully.");
+                con.CloseConnection();
+            }
+
+            /*if (result != 0)
             {
                 MessageBox.Show("Customer added successfully.");
             } else
             {
                 MessageBox.Show("Something went wrong");
-            }
+            } */
             this.Close();
         }
 
