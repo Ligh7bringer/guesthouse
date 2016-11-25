@@ -29,26 +29,21 @@ namespace assessment2_cs
 
         private void cbox_cust_Loaded(object sender, RoutedEventArgs e)
         {
-            con.OpenConnection();
+            Customers c = new Customers();
+            List<Customer> customers = new List<Customer>();
             try
             {
-                String query = "SELECT name FROM customer";
-                SqlDataReader sdr = con.DataReader(query);
-                while (sdr.Read())
+                customers = c.GetCustomerNames();
+                for (int i = 0; i < customers.Count; i++)
                 {
-                    this.cbox_cust.Items.Add(sdr["name"]);
+                    cbox_cust.Items.Add(customers[i].Name);
                 }
-                sdr.Close();
-            }
+            } 
             catch (SqlException ex)
             {
-                MessageBox.Show("An error occured: " + ex.Message);
-            }
-            finally
-            {
-                con.CloseConnection();
-            }
-
+                MessageBox.Show(ex.Message);
+                this.Close();                               
+            } 
         }
 
         String refnum;
@@ -117,6 +112,7 @@ namespace assessment2_cs
             catch (SqlException ex)
             {
                 MessageBox.Show("An error occured: " + ex.Message);
+                return;
             }
             finally
             {
@@ -133,7 +129,7 @@ namespace assessment2_cs
             else
             {
                 MessageBox.Show("Something went wrong.");
-            }            */
+            }*/
         }
     }
 }

@@ -27,29 +27,21 @@ namespace assessment2_cs
 
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
-            int result;
-            DbConnection con = new DbConnection();
-            con.OpenConnection();
+            Customer c = new Customer();
+            c.Name = txtbx_name.Text;
+            c.Address = txtbx_address.Text;
             try
             {
-                string query = "INSERT INTO customer(name, address) VALUES (@name, @address)";
-                SqlCommand com = new SqlCommand(query, con.Con);
-                com.Parameters.AddWithValue("name", txtbx_name.Text);
-                com.Parameters.AddWithValue("address", txtbx_address.Text);
-                result = com.ExecuteNonQuery();
-            }
+                c.AddToDB();
+            } 
             catch (SqlException ex)
             {
-                MessageBox.Show("An error occured: " + ex.Message);
+                MessageBox.Show(ex.Message);
+                this.Close();
                 return;
             }
-            finally
-            {                
-                con.CloseConnection();
-                this.Close();
-            }
-
-            MessageBox.Show("Customer added successfully.");
+            MessageBox.Show("Customer successfully added.");
+            this.Close();
         }
 
         private void btn_exit_Click(object sender, RoutedEventArgs e)
