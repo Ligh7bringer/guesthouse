@@ -41,21 +41,15 @@ namespace assessment2_cs
             catch (SqlException ex)
             {
                 MessageBox.Show("An error occured: " + ex.Message);
+                return;
             }
             finally
-            {
-                MessageBox.Show("Customer added successfully.");
+            {                
                 con.CloseConnection();
+                this.Close();
             }
 
-            /*if (result != 0)
-            {
-                MessageBox.Show("Customer added successfully.");
-            } else
-            {
-                MessageBox.Show("Something went wrong");
-            } */
-            this.Close();
+            MessageBox.Show("Customer added successfully.");
         }
 
         private void btn_exit_Click(object sender, RoutedEventArgs e)

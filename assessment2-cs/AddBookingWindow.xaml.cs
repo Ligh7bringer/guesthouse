@@ -56,15 +56,15 @@ namespace assessment2_cs
             catch (SqlException ex)
             {
                 MessageBox.Show("An error occured: " + ex.Message);
-                throw ex;
+                return;
             }
             finally
             {
-                MessageBox.Show("Booking added successfully.");
                 con.CloseConnection();
                 this.Close();
             }
 
+            MessageBox.Show("Booking added successfully.");
         }
 
         private void cbox_cust_Loaded(object sender, RoutedEventArgs e)

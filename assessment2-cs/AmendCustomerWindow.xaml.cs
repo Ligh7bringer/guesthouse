@@ -93,23 +93,15 @@ namespace assessment2_cs
             catch (SqlException ex)
             {
                 MessageBox.Show("An error occured: " + ex.Message);
+                return;
             }
             finally
-            {
-                MessageBox.Show("Details for user successfully amended.");
+            {                
                 con.CloseConnection();
-            }
-
-            /*if(result != 0)
-            {
-                MessageBox.Show("Details for user successfully amended.");
                 this.Close();
             }
-            else
-            {
-                MessageBox.Show("Something went wrong.");                
-            } */
-            this.Close();
+
+            MessageBox.Show("Details for user successfully amended.");
         }
 
         private void btn_remove_Click(object sender, RoutedEventArgs e)
@@ -128,9 +120,11 @@ namespace assessment2_cs
             }
             finally
             {
-                MessageBox.Show("Customer successfully deleted.");
                 con.CloseConnection();
+                this.Close();
             }
+
+            MessageBox.Show("Customer successfully deleted.");
 
             /*if (result != 0) // TO DO: AND THEY HAVE NO BOOKINGS
             {
@@ -140,7 +134,6 @@ namespace assessment2_cs
             {
                 MessageBox.Show("Something went wrong.");
             }            */
-            this.Close();
         }
     }
 }
