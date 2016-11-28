@@ -473,10 +473,10 @@ namespace assessment2_cs {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bookingRow AddbookingRow(int reference_num, System.DateTime arrival_date, System.DateTime departure_date, customerRow parentcustomerRowByFK_booking_ToTable) {
+            public bookingRow AddbookingRow(System.DateTime arrival_date, System.DateTime departure_date, customerRow parentcustomerRowByFK_booking_ToTable) {
                 bookingRow rowbookingRow = ((bookingRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        reference_num,
+                        null,
                         arrival_date,
                         departure_date,
                         null};
@@ -531,7 +531,11 @@ namespace assessment2_cs {
                 base.Columns.Add(this.columncust_ref);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnreference_num}, true));
+                this.columnreference_num.AutoIncrement = true;
+                this.columnreference_num.AutoIncrementSeed = -1;
+                this.columnreference_num.AutoIncrementStep = -1;
                 this.columnreference_num.AllowDBNull = false;
+                this.columnreference_num.ReadOnly = true;
                 this.columnreference_num.Unique = true;
                 this.columnarrival_date.AllowDBNull = false;
                 this.columndeparture_date.AllowDBNull = false;
@@ -1717,19 +1721,19 @@ namespace assessment2_cs.DBDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_cust_ref", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "cust_ref", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[booking] ([reference_num], [arrival_date], [departure_date], [cust_ref]) VALUES (@reference_num, @arrival_date, @departure_date, @cust_ref);
-SELECT reference_num, arrival_date, departure_date, cust_ref FROM booking WHERE (reference_num = @reference_num)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[booking] ([arrival_date], [departure_date], [cust_ref]) VALUES" +
+                " (@arrival_date, @departure_date, @cust_ref);\r\nSELECT reference_num, arrival_dat" +
+                "e, departure_date, cust_ref FROM booking WHERE (reference_num = SCOPE_IDENTITY()" +
+                ")";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@reference_num", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "reference_num", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@arrival_date", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "arrival_date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@departure_date", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "departure_date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@cust_ref", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "cust_ref", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[booking] SET [reference_num] = @reference_num, [arrival_date] = @arrival_date, [departure_date] = @departure_date, [cust_ref] = @cust_ref WHERE (([reference_num] = @Original_reference_num) AND ([arrival_date] = @Original_arrival_date) AND ([departure_date] = @Original_departure_date) AND ([cust_ref] = @Original_cust_ref));
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[booking] SET [arrival_date] = @arrival_date, [departure_date] = @departure_date, [cust_ref] = @cust_ref WHERE (([reference_num] = @Original_reference_num) AND ([arrival_date] = @Original_arrival_date) AND ([departure_date] = @Original_departure_date) AND ([cust_ref] = @Original_cust_ref));
 SELECT reference_num, arrival_date, departure_date, cust_ref FROM booking WHERE (reference_num = @reference_num)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@reference_num", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "reference_num", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@arrival_date", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "arrival_date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@departure_date", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "departure_date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@cust_ref", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "cust_ref", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1737,13 +1741,15 @@ SELECT reference_num, arrival_date, departure_date, cust_ref FROM booking WHERE 
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_arrival_date", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "arrival_date", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_departure_date", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "departure_date", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_cust_ref", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "cust_ref", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@reference_num", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "reference_num", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::assessment2_cs.Properties.Settings.Default.DBConnectionString;
+            this._connection.ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\bin\\Debug\\dat" +
+                "abase\\DB.mdf;Integrated Security=True;Connect Timeout=30";
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1838,11 +1844,10 @@ SELECT reference_num, arrival_date, departure_date, cust_ref FROM booking WHERE 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int reference_num, System.DateTime arrival_date, System.DateTime departure_date, int cust_ref) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(reference_num));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(arrival_date));
-            this.Adapter.InsertCommand.Parameters[2].Value = ((System.DateTime)(departure_date));
-            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(cust_ref));
+        public virtual int Insert(System.DateTime arrival_date, System.DateTime departure_date, int cust_ref) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((System.DateTime)(arrival_date));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(departure_date));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(cust_ref));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1863,15 +1868,15 @@ SELECT reference_num, arrival_date, departure_date, cust_ref FROM booking WHERE 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int reference_num, System.DateTime arrival_date, System.DateTime departure_date, int cust_ref, int Original_reference_num, System.DateTime Original_arrival_date, System.DateTime Original_departure_date, int Original_cust_ref) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(reference_num));
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(arrival_date));
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((System.DateTime)(departure_date));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(cust_ref));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_reference_num));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(Original_arrival_date));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(Original_departure_date));
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_cust_ref));
+        public virtual int Update(System.DateTime arrival_date, System.DateTime departure_date, int cust_ref, int Original_reference_num, System.DateTime Original_arrival_date, System.DateTime Original_departure_date, int Original_cust_ref, int reference_num) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((System.DateTime)(arrival_date));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(departure_date));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(cust_ref));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_reference_num));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(Original_arrival_date));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(Original_departure_date));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_cust_ref));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(reference_num));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1893,7 +1898,7 @@ SELECT reference_num, arrival_date, departure_date, cust_ref FROM booking WHERE 
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(System.DateTime arrival_date, System.DateTime departure_date, int cust_ref, int Original_reference_num, System.DateTime Original_arrival_date, System.DateTime Original_departure_date, int Original_cust_ref) {
-            return this.Update(Original_reference_num, arrival_date, departure_date, cust_ref, Original_reference_num, Original_arrival_date, Original_departure_date, Original_cust_ref);
+            return this.Update(arrival_date, departure_date, cust_ref, Original_reference_num, Original_arrival_date, Original_departure_date, Original_cust_ref, Original_reference_num);
         }
     }
     
@@ -2055,7 +2060,8 @@ SELECT reference_num, name, address FROM customer WHERE (reference_num = @refere
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::assessment2_cs.Properties.Settings.Default.DBConnectionString;
+            this._connection.ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\bin\\Debug\\dat" +
+                "abase\\DB.mdf;Integrated Security=True;Connect Timeout=30";
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2409,7 +2415,8 @@ SELECT id, booking_ref, passport_num, age FROM guest WHERE (id = @id)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::assessment2_cs.Properties.Settings.Default.DBConnectionString;
+            this._connection.ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\bin\\Debug\\dat" +
+                "abase\\DB.mdf;Integrated Security=True;Connect Timeout=30";
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

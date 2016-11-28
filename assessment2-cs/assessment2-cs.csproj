@@ -84,10 +84,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BookingSingleton.cs" />
+    <Compile Include="Booking.cs" />
     <Compile Include="Customer.cs" />
-    <Compile Include="Customers.cs" />
-    <Compile Include="CustomerSingleton.cs" />
     <Compile Include="DbConnection.cs" />
     <Compile Include="DBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>

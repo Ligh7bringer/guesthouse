@@ -27,31 +27,21 @@ namespace assessment2_cs
             InitializeComponent();
         }
 
+        Customer c = new Customer();
+        List<Customer> customers = new List<Customer>();
+
         DbConnection con = new DbConnection();
-
         private void btn_save_Click(object sender, RoutedEventArgs e)
-        {
-            con.OpenConnection();
-            String refnum = "";
-            int result;
-
+        {  
+            Booking b = new Booking();
             try
             {
-                String query = "SELECT * FROM customer WHERE name='" + cbox_cust.SelectedValue + "'";
-                string queryInsert = "INSERT INTO booking (arrival_date, departure_date, cust_ref) VALUES (@arrivald, @departd, @cust_ref)";
-                SqlDataReader sdr = con.DataReader(query);
-                while (sdr.Read())
-                {
-                    refnum = sdr["reference_num"].ToString();
-                }
-                sdr.Close();
-
-                SqlCommand qInsert = new SqlCommand(queryInsert, con.Con);
-                qInsert.Parameters.AddWithValue("arrivald", txtbox_arrivald.Text);
-                qInsert.Parameters.AddWithValue("departd", txtbx_dapartd.Text);
-                qInsert.Parameters.AddWithValue("cust_ref", refnum);
-
-                result = qInsert.ExecuteNonQuery();
+                customers = c.GetCustomers();
+                c = customers.Find(x => x.Name == cbox_cust.SelectedValue.ToString());
+                b.CustRef = c.Refnumber;
+                b.ArrivalDate = txtbox_arrivald.Text;
+                b.DepartDate = txtbx_dapartd.Text;
+                b.AddToDB();
             }
             catch (SqlException ex)
             {
@@ -59,8 +49,7 @@ namespace assessment2_cs
                 return;
             }
             finally
-            {
-                con.CloseConnection();
+            {                
                 this.Close();
             }
 
@@ -69,24 +58,18 @@ namespace assessment2_cs
 
         private void cbox_cust_Loaded(object sender, RoutedEventArgs e)
         {
-            String query = "SELECT name FROM customer";
-            con.OpenConnection();
             try
             {
-                SqlDataReader sdr = con.DataReader(query);
-                while (sdr.Read())
+                customers = c.GetCustomers();
+                for (int i = 0; i < customers.Count; i++)
                 {
-                    this.cbox_cust.Items.Add(sdr["name"]);
+                    cbox_cust.Items.Add(customers[i].Name);
                 }
-                con.CloseConnection();
             }
             catch (SqlException ex)
             {
-                MessageBox.Show("An error occured: " + ex.Message);
-            }
-            finally
-            {
-                con.CloseConnection();
+                MessageBox.Show(ex.Message);
+                this.Close();
             }
         }
     }

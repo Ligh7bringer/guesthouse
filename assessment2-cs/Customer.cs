@@ -56,9 +56,79 @@ namespace assessment2_cs
 
         public void RemoveFromDB()
         {
-
+            string query = "DELETE FROM customer WHERE reference_num=@ref";
+            con.OpenConnection();
+            try
+            {
+                SqlCommand qDelete = new SqlCommand(query, con.Con);
+                qDelete.Parameters.AddWithValue("ref", refnumber);               
+                qDelete.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.CloseConnection();
+            }
         }
 
-       
+        public void UpdateCustomer()
+        {
+            int i = 0;
+            string query = "UPDATE customer SET name=@name, address=@address WHERE reference_num=@refnum";
+            con.OpenConnection();
+            try
+            {
+                SqlCommand qUpdate = new SqlCommand(query, con.Con);
+                qUpdate.Parameters.AddWithValue("name", name);
+                qUpdate.Parameters.AddWithValue("address", address);
+                qUpdate.Parameters.AddWithValue("refnum", refnumber);
+                i = qUpdate.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.CloseConnection();
+            }
+        }
+
+        public List<Customer> GetCustomers()
+        {
+            con.OpenConnection();
+            try
+            {
+                String query = "SELECT * FROM customer";
+                SqlDataReader sdr = con.DataReader(query);
+                while (sdr.Read())
+                {
+                    Customer c = new Customer();
+                    c.Name = sdr["name"].ToString();
+                    c.Address = sdr["address"].ToString();
+                    c.Refnumber = Int32.Parse(sdr["reference_num"].ToString());
+                    customers.Add(c);
+                }
+                sdr.Close();
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.CloseConnection();
+            }
+            return customers;
+        }
+
+        public override string ToString()
+        {
+            return "Name: " + name + "\nAddress: " + address + "\nRef: " + refnumber;
+        }
+
     }
 }

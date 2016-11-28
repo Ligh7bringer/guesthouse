@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Linq;
 
 namespace assessment2_cs
 {
@@ -25,15 +26,14 @@ namespace assessment2_cs
             InitializeComponent();
         }
 
-        DbConnection con = new DbConnection();
+        Customer c = new Customer();
+        List<Customer> customers = new List<Customer>();
 
         private void cbox_cust_Loaded(object sender, RoutedEventArgs e)
-        {
-            Customers c = new Customers();
-            List<Customer> customers = new List<Customer>();
+        {           
             try
             {
-                customers = c.GetCustomerNames();
+                customers = c.GetCustomers();
                 for (int i = 0; i < customers.Count; i++)
                 {
                     cbox_cust.Items.Add(customers[i].Name);
@@ -46,44 +46,32 @@ namespace assessment2_cs
             } 
         }
 
-        String refnum;
+        int refnum;
         private void cbox_cust_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {            
-            String query = "SELECT * FROM customer WHERE name='" + cbox_cust.SelectedValue + "'";
-            con.OpenConnection();
+        {
             try
             {
-                SqlDataReader sdr = con.DataReader(query);
-                while (sdr.Read())
-                {
-                    this.txtbox_name.Text = sdr["name"].ToString();
-                    this.txtbx_address.Text = sdr["address"].ToString();
-                    refnum = sdr["reference_num"].ToString();
-                }
-                sdr.Close();
-            }
-            catch (SqlException ex)
+                customers = c.GetCustomers();
+                c = customers.Find(x => x.Name == cbox_cust.SelectedValue.ToString());
+                this.txtbox_name.Text = c.Name;
+                this.txtbx_address.Text = c.Address;
+                refnum = c.Refnumber;
+            } 
+            catch (Exception ex)
             {
-                MessageBox.Show("An error occured: " + ex.Message);
-            }
-            finally
-            {
-                con.CloseConnection();
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void btn_save_Click(object sender, RoutedEventArgs e)
-        {
-            int result;
-            String query = "UPDATE customer SET name=@name, address=@address WHERE reference_num=@refnum";
-            con.OpenConnection();
+        {               
             try
             {
-                SqlCommand com = new SqlCommand(query, con.Con);
-                com.Parameters.AddWithValue("name", txtbox_name.Text);
-                com.Parameters.AddWithValue("address", txtbx_address.Text);
-                com.Parameters.AddWithValue("refnum", refnum);          
-                result = com.ExecuteNonQuery();
+                customers = c.GetCustomers();
+                c = customers.Find(x => x.Refnumber == refnum);
+                c.Name = txtbox_name.Text;
+                c.Address = txtbx_address.Text;
+                c.UpdateCustomer();              
             }
             catch (SqlException ex)
             {
@@ -92,7 +80,6 @@ namespace assessment2_cs
             }
             finally
             {                
-                con.CloseConnection();
                 this.Close();
             }
 
@@ -100,36 +87,24 @@ namespace assessment2_cs
         }
 
         private void btn_remove_Click(object sender, RoutedEventArgs e)
-        {
-            String query = "DELETE FROM customer WHERE reference_num=@refnum";
-            con.OpenConnection();
+        {   
             try
             {
-                SqlCommand com = new SqlCommand(query, con.Con);
-                com.Parameters.AddWithValue("refnum", refnum);            
-                com.ExecuteNonQuery();                
+                customers = c.GetCustomers();
+                c = customers.Find(x => x.Refnumber == refnum);
+                c.RemoveFromDB();
             }
-            catch (SqlException ex)
+            catch 
             {
-                MessageBox.Show("An error occured: " + ex.Message);
+                MessageBox.Show("The selected customer has a booking associated with them and cannot be deleted.");
                 return;
             }
             finally
             {
-                con.CloseConnection();
                 this.Close();
             }
 
             MessageBox.Show("Customer successfully deleted.");
-
-            /*if (result != 0) // TO DO: AND THEY HAVE NO BOOKINGS
-            {
-                MessageBox.Show("Customer successfully deleted.");
-            }
-            else
-            {
-                MessageBox.Show("Something went wrong.");
-            }*/
         }
     }
 }
