@@ -12,7 +12,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Linq;
 
 namespace assessment2_cs
 {
@@ -30,12 +29,12 @@ namespace assessment2_cs
         List<Customer> customers = new List<Customer>();
 
         private void cbox_cust_Loaded(object sender, RoutedEventArgs e)
-        {           
+        {
             try
             {
                 customers = c.GetCustomers();
                 for (int i = 0; i < customers.Count; i++)
-                {
+                {                    
                     cbox_cust.Items.Add(customers[i].Name);
                 }
             } 

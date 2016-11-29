@@ -15,6 +15,14 @@ namespace assessment2_cs
         private List<Customer> customers = new List<Customer>();
         private DbConnection con = new DbConnection();
 
+        public Customer() { }
+
+        public Customer(String nm, String addr)
+        {
+            name = nm;
+            address = addr;
+        }
+
         public String Name
         {
             get { return name; }
@@ -75,8 +83,7 @@ namespace assessment2_cs
         }
 
         public void UpdateCustomer()
-        {
-            int i = 0;
+        {            
             string query = "UPDATE customer SET name=@name, address=@address WHERE reference_num=@refnum";
             con.OpenConnection();
             try
@@ -85,7 +92,7 @@ namespace assessment2_cs
                 qUpdate.Parameters.AddWithValue("name", name);
                 qUpdate.Parameters.AddWithValue("address", address);
                 qUpdate.Parameters.AddWithValue("refnum", refnumber);
-                i = qUpdate.ExecuteNonQuery();
+                qUpdate.ExecuteNonQuery();
             }
             catch (SqlException ex)
             {
@@ -127,7 +134,8 @@ namespace assessment2_cs
 
         public override string ToString()
         {
-            return "Name: " + name + "\nAddress: " + address + "\nRef: " + refnumber;
+            string s = name + "( " + address + ")";
+            return s;
         }
 
     }

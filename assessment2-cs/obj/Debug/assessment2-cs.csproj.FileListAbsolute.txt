@@ -18,3 +18,5 @@ C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\AddC
 C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\AddCustomerWindow.baml
 C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\AmendCustomerWindow.g.cs
 C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\AmendCustomerWindow.baml
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\AmendBookingWindow.g.cs
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\AmendBookingWindow.baml

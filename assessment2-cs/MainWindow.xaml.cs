@@ -42,5 +42,11 @@ namespace assessment2_cs
             AddCustomerWindow addCust = new AddCustomerWindow();
             addCust.ShowDialog();
         }
+
+        private void btn_amenbooking_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            AmendBookingWindow amendBooking = new AmendBookingWindow();
+            amendBooking.ShowDialog();
+        }
     }
 }

@@ -10,25 +10,43 @@ namespace assessment2_cs
 {
     class Booking
     {
-        private String arrivaldate;
-        private String departdate;
+        private int refnum;
+        private DateTime arrivaldate;
+        private DateTime departdate;
         private int bookingref;
         private int custref;
+        private Customer hasCustomer;
         private DbConnection con = new DbConnection();
+
+        public Booking() { }
+         
+        public Booking(DateTime arrd, DateTime depd)
+        {
+            arrivaldate = arrd;
+            departdate = depd;
+        }
+
+        public Booking(DateTime arrd, DateTime depd, Customer c) : this(arrd, depd)
+        {
+            this.hasCustomer = c;
+        }
+
+        public int RefNum
+        {
+            get { return refnum; }
+            set { refnum = value; }
+        }
         
-        public String ArrivalDate
+        public DateTime ArrivalDate
         {
             get { return arrivaldate; }
             set { arrivaldate = value; }
         }
 
-        public String DepartDate
+        public DateTime DepartDate
         {
             get { return departdate; }
-            set
-            {
-                departdate = value; // parse to date ??
-            }
+            set { departdate = value; }
         }
 
         public int BookingRef
@@ -52,7 +70,7 @@ namespace assessment2_cs
                 SqlCommand qInsert = new SqlCommand(query, con.Con);
                 qInsert.Parameters.AddWithValue("arrivald",arrivaldate);
                 qInsert.Parameters.AddWithValue("departd", departdate);
-                qInsert.Parameters.AddWithValue("cust_ref", custref);
+                qInsert.Parameters.AddWithValue("cust_ref", hasCustomer.Refnumber);
                 qInsert.ExecuteNonQuery();
             }
             catch (SqlException ex)
@@ -63,6 +81,77 @@ namespace assessment2_cs
             {
                 con.CloseConnection();
             }
+        }
+
+        public void AddCustomer(Customer c)
+        {
+            this.hasCustomer = c;
+        }
+
+        public string GetCustomerName()
+        {            
+            return this.hasCustomer.Name;            
+        }
+
+        public List<Booking> GetBookings()
+        {
+            List<Booking> bookings = new List<Booking>();
+            string query = "SELECT * FROM booking JOIN customer ON booking.cust_ref=customer.reference_num";
+            try
+            {
+                con.OpenConnection();
+                SqlDataReader sdr = con.DataReader(query);
+                while(sdr.Read())
+                {
+                    Booking b = new Booking();
+                    Customer c = new Customer();
+                    c.Name = sdr["name"].ToString();
+                    c.Address = sdr["address"].ToString();
+                    c.Refnumber = Int32.Parse(sdr["cust_ref"].ToString());
+                    b.AddCustomer(c);
+                    b.ArrivalDate = Convert.ToDateTime(sdr["arrival_date"]);
+                    b.DepartDate = Convert.ToDateTime(sdr["departure_date"]);
+                    b.RefNum = Int32.Parse(sdr["reference_num"].ToString());
+                    bookings.Add(b);
+                }
+                sdr.Close();
+            } 
+            catch (SqlException ex)
+            {
+                throw ex;
+            } 
+            finally
+            {
+                con.CloseConnection();
+            }
+            return bookings;           
+        }
+
+        public void Update()
+        {
+            string query = "UPDATE booking SET arrival_date=@arrd, departure_date=@depd WHERE reference_num=@refnum";
+            con.OpenConnection();
+            try
+            {
+                SqlCommand qUpdate = new SqlCommand(query, con.Con);
+                qUpdate.Parameters.AddWithValue("arrd", arrivaldate);
+                qUpdate.Parameters.AddWithValue("depd", departdate);
+                qUpdate.Parameters.AddWithValue("refnum", refnum);
+                qUpdate.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.CloseConnection();
+            }
+        }
+
+        public override string ToString()
+        {
+            return hasCustomer.Name + " " + arrivaldate.ToString("dd/MM/yyyy") + "-" + departdate.Date.ToString("dd/MM/yyyy");
         }
     }
 }

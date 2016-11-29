@@ -32,15 +32,13 @@ namespace assessment2_cs
 
         DbConnection con = new DbConnection();
         private void btn_save_Click(object sender, RoutedEventArgs e)
-        {  
-            Booking b = new Booking();
+        {
+            
             try
             {
                 customers = c.GetCustomers();
                 c = customers.Find(x => x.Name == cbox_cust.SelectedValue.ToString());
-                b.CustRef = c.Refnumber;
-                b.ArrivalDate = txtbox_arrivald.Text;
-                b.DepartDate = txtbx_dapartd.Text;
+                Booking b = new Booking(Convert.ToDateTime(txtbox_arrivald.Text), Convert.ToDateTime(txtbx_dapartd.Text), c);
                 b.AddToDB();
             }
             catch (SqlException ex)
