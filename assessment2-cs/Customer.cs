@@ -26,13 +26,35 @@ namespace assessment2_cs
         public String Name
         {
             get { return name; }
-            set { name = value; }
+            set
+            {
+                if(!String.IsNullOrEmpty(value))
+                {
+                    name = value;
+                }
+                else
+                {
+                    ArgumentException ex = new ArgumentException("Please enter the customer's name.");
+                    throw ex;
+                }
+            }
         }
 
         public String Address
         {
             get { return address; }
-            set { address = value; }
+            set
+            {
+                if (!String.IsNullOrEmpty(value))
+                {
+                    address = value;
+                }
+                else
+                {
+                    ArgumentException ex = new ArgumentException("Please enter the customer's address.");
+                    throw ex;
+                }
+            }
         }
 
         public int Refnumber

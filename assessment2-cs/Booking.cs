@@ -16,6 +16,7 @@ namespace assessment2_cs
         private int bookingref;
         private int custref;
         private Customer hasCustomer;
+        private List<Guest> guests = new List<Guest>();
         private DbConnection con = new DbConnection();
 
         public Booking() { }
@@ -63,7 +64,7 @@ namespace assessment2_cs
 
         public void AddToDB()
         {
-            string query = "INSERT INTO booking (arrival_date, departure_date, cust_ref) VALUES (@arrivald, @departd, @cust_ref)";
+            string query = "INSERT INTO booking (arrival_date, departure_date, cust_ref) OUTPUT Inserted.reference_num VALUES (@arrivald, @departd, @cust_ref)";
             con.OpenConnection();
             try
             {
@@ -71,7 +72,12 @@ namespace assessment2_cs
                 qInsert.Parameters.AddWithValue("arrivald",arrivaldate);
                 qInsert.Parameters.AddWithValue("departd", departdate);
                 qInsert.Parameters.AddWithValue("cust_ref", hasCustomer.Refnumber);
-                qInsert.ExecuteNonQuery();
+                var id = qInsert.ExecuteScalar();
+                foreach (var guest in guests)
+                {
+                    guest.BookingRef = Convert.ToInt32(id);
+                    guest.AddToDB();
+                }
             }
             catch (SqlException ex)
             {
@@ -86,6 +92,16 @@ namespace assessment2_cs
         public void AddCustomer(Customer c)
         {
             this.hasCustomer = c;
+        }
+
+        public void AddGuest(Guest g)
+        {
+            if(guests.Count > 3)
+            {
+                ArgumentException ex = new ArgumentException("Only 4 guests are allowed per booking");
+                throw ex;
+            }
+            this.guests.Add(g);
         }
 
         public string GetCustomerName()
@@ -136,6 +152,26 @@ namespace assessment2_cs
                 SqlCommand qUpdate = new SqlCommand(query, con.Con);
                 qUpdate.Parameters.AddWithValue("arrd", arrivaldate);
                 qUpdate.Parameters.AddWithValue("depd", departdate);
+                qUpdate.Parameters.AddWithValue("refnum", refnum);
+                qUpdate.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.CloseConnection();
+            }
+        }
+
+        public void RemoveFromDB()
+        {
+            string query = "DELETE FROM booking WHERE reference_num=@refnum";
+            con.OpenConnection();
+            try
+            {
+                SqlCommand qUpdate = new SqlCommand(query, con.Con);
                 qUpdate.Parameters.AddWithValue("refnum", refnum);
                 qUpdate.ExecuteNonQuery();
             }

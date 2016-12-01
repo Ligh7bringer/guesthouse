@@ -27,17 +27,22 @@ namespace assessment2_cs
 
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
-            Customer c = new Customer();
-            c.Name = txtbx_name.Text;
-            c.Address = txtbx_address.Text;
             try
             {
+                Customer c = new Customer();
+                c.Name = txtbx_name.Text;
+                c.Address = txtbx_address.Text;
                 c.AddToDB();
             } 
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
                 this.Close();
+                return;
+            } 
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
                 return;
             }
             MessageBox.Show("Customer successfully added.");

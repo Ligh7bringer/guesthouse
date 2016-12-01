@@ -74,7 +74,28 @@ namespace assessment2_cs
                 MessageBox.Show(ex.Message);
                 return;
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("Dates supplied are in a wrong format. Please use dd/MM/yyyy or yyyy-MM-dd");
+                return;
+            }
             MessageBox.Show("Booking successfully amended.");
+            this.Close();
+        }
+
+        private void btn_remove_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                b.RemoveFromDB();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+                this.Close();
+                return;
+            }
+            MessageBox.Show("Booking successfully removed.");
             this.Close();
         }
     }
