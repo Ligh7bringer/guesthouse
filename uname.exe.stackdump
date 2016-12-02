@@ -1,3 +1,1 @@
 Exception: STATUS_ACCESS_VIOLATION at eip=61005994
-eax=00000000 ebx=19001A10 ecx=72B82E09 edx=00000001 esi=00000000 edi=00000000
-ebp=00000000 esp=0093CD74 program=\\?\C:\Users\Svetlozar Georgiev\AppData\Local\Atlassian\SourceTree\git_local\usr\bin\uname.exe, pid 10428, thread unknown (0x102C)

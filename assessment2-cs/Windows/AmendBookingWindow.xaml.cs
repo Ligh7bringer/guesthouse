@@ -62,6 +62,7 @@ namespace assessment2_cs
 
             txtbox_arrivald.Text = b.ArrivalDate.ToString("dd/MM/yyyy");
             txtbx_dapartd.Text = b.DepartDate.ToString("dd/MM/yyyy");
+            lbl_numofguests.Content = "Selected booking has " + b.Guests.Count + " guests.";
            
             //MessageBox.Show(b.RefNum.ToString());
             foreach (var tmp in b.Guests)
@@ -74,6 +75,10 @@ namespace assessment2_cs
         {
             try
             {
+                foreach (Guest guest_ in RemovedGuests)
+                {
+                    guest_.RemoveFromDB();
+                }
                 b.ArrivalDate = Convert.ToDateTime(txtbox_arrivald.Text);
                 b.DepartDate = Convert.ToDateTime(txtbx_dapartd.Text);
                 b.Update();
@@ -126,12 +131,13 @@ namespace assessment2_cs
         {            
             try
             {
+                b.Guests.Remove(selected);
                 cbox_guest.SelectedIndex = -1;
                 cbox_guest.Items.Remove(selected.Name);
                 selected.Name = txtbox_guestname.Text;
                 selected.PassportNo = txtbx_passno.Text;
                 selected.Age = Convert.ToInt32(txtbox_age.Text);
-                selected.UpdateGuest();
+                b.Guests.Add(selected);
                 cbox_guest.Items.Add(selected.Name);
                 cbox_guest.Items.Refresh();
                 txtbox_age.Clear();
@@ -143,7 +149,25 @@ namespace assessment2_cs
                 MessageBox.Show(ex.Message);
                 return;
             }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
             MessageBox.Show("Guest details successfuly amended.");
+        }
+
+        List<Guest> RemovedGuests = new List<Guest>();
+        private void btn_removeguest_Click(object sender, RoutedEventArgs e)
+        {
+            b.Guests.Remove(selected);
+            cbox_guest.SelectedIndex = -1;
+            cbox_guest.Items.Remove(selected.Name);
+            cbox_guest.Items.Refresh();
+            RemovedGuests.Add(selected);
+            txtbox_age.Clear();
+            txtbox_guestname.Clear();
+            txtbx_passno.Clear();
         }
     }
 }

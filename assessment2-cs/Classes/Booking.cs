@@ -161,6 +161,10 @@ namespace assessment2_cs
             con.OpenConnection();
             try
             {
+                foreach (var guest in guests)
+                {
+                    guest.UpdateGuest();
+                }
                 SqlCommand qUpdate = new SqlCommand(query, con.Con);
                 qUpdate.Parameters.AddWithValue("arrd", arrivaldate);
                 qUpdate.Parameters.AddWithValue("depd", departdate);

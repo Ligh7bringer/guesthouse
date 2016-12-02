@@ -16,16 +16,18 @@
         <Label x:Name="label_Copy5" Content="Booking" HorizontalAlignment="Left" Margin="27,75,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btn_save" Content="Save" HorizontalAlignment="Left" Margin="273,529,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="3.724,0.57" Click="btn_save_Click"/>
         <ComboBox x:Name="cbox_booking" HorizontalAlignment="Left" Margin="143,79,0,0" VerticalAlignment="Top" Width="205" Loaded="cbox_booking_Loaded" SelectionChanged="cbox_booking_SelectionChanged"/>
-        <ComboBox x:Name="cbox_guest" HorizontalAlignment="Left" Margin="143,261,0,0" VerticalAlignment="Top" Width="205" SelectionChanged="cbox_guest_SelectionChanged"/>
-        <Label x:Name="label_Copy" Content="Name" HorizontalAlignment="Left" Margin="27,292,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy3" Content="Passport number" HorizontalAlignment="Left" Margin="27,323,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy4" Content="Guest" HorizontalAlignment="Left" Margin="27,261,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy6" Content="Age" HorizontalAlignment="Left" Margin="27,354,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtbox_guestname" HorizontalAlignment="Left" Height="23" Margin="143,295,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205"/>
-        <TextBox x:Name="txtbx_passno" HorizontalAlignment="Left" Height="23" Margin="143,326,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205"/>
-        <TextBox x:Name="txtbox_age" HorizontalAlignment="Left" Height="23" Margin="143,357,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205"/>
+        <ComboBox x:Name="cbox_guest" HorizontalAlignment="Left" Margin="152,288,0,0" VerticalAlignment="Top" Width="205" SelectionChanged="cbox_guest_SelectionChanged"/>
+        <Label x:Name="label_Copy" Content="Name" HorizontalAlignment="Left" Margin="36,319,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy3" Content="Passport number" HorizontalAlignment="Left" Margin="36,350,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy4" Content="Guest" HorizontalAlignment="Left" Margin="36,288,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy6" Content="Age" HorizontalAlignment="Left" Margin="36,381,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtbox_guestname" HorizontalAlignment="Left" Height="23" Margin="152,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205"/>
+        <TextBox x:Name="txtbx_passno" HorizontalAlignment="Left" Height="23" Margin="152,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205"/>
+        <TextBox x:Name="txtbox_age" HorizontalAlignment="Left" Height="23" Margin="152,384,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205"/>
         <Separator HorizontalAlignment="Left" Height="17" Margin="0,215,0,0" VerticalAlignment="Top" Width="392"/>
-        <Button x:Name="btn_amendguest" Content="Amend guest" HorizontalAlignment="Left" Margin="264,398,0,0" VerticalAlignment="Top" Width="84" Height="27" Click="btn_amendguest_Click"/>
+        <Button x:Name="btn_amendguest" Content="Amend guest" HorizontalAlignment="Left" Margin="273,425,0,0" VerticalAlignment="Top" Width="84" Height="27" Click="btn_amendguest_Click"/>
+        <Label x:Name="lbl_numofguests" Content="" HorizontalAlignment="Left" Margin="92,232,0,0" VerticalAlignment="Top" RenderTransformOrigin="-7.3,1.846"/>
+        <Button x:Name="btn_removeguest" Content="Remove guest" HorizontalAlignment="Left" Margin="36,425,0,0" VerticalAlignment="Top" Width="84" Height="27" Click="btn_removeguest_Click"/>
 
     </Grid>
 </Window>
