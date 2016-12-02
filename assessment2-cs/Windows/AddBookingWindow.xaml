@@ -7,14 +7,14 @@
         mc:Ignorable="d"
         Title="AddBookingWindow" Height="600" Width="400">
     <Grid Margin="0,0,-8,-7">
-        <TextBox x:Name="txtbox_arrivald" HorizontalAlignment="Left" Height="23" Margin="143,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205"/>
-        <Label x:Name="label_Copy1" Content="Arrival date" HorizontalAlignment="Left" Margin="27,39,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtbx_dapartd" HorizontalAlignment="Left" Height="23" Margin="143,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205"/>
-        <Label x:Name="label_Copy2" Content="Departure date" HorizontalAlignment="Left" Margin="27,70,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtbox_arrivald" HorizontalAlignment="Left" Height="23" Margin="143,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205"/>
+        <Label x:Name="label_Copy1" Content="Arrival date" HorizontalAlignment="Left" Margin="27,50,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtbx_dapartd" HorizontalAlignment="Left" Height="23" Margin="143,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205"/>
+        <Label x:Name="label_Copy2" Content="Departure date" HorizontalAlignment="Left" Margin="27,81,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btn_save" Content="Save" HorizontalAlignment="Left" Margin="273,528,0,0" VerticalAlignment="Top" Width="75" Click="btn_save_Click"/>
-        <Label x:Name="label_Copy" Content="Customer" HorizontalAlignment="Left" Margin="27,8,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbox_cust" HorizontalAlignment="Left" Margin="143,12,0,0" VerticalAlignment="Top" Width="120" Loaded="cbox_cust_Loaded"/>
-        <Label x:Name="label" Content="(e.g. dd/MM/yyyy)" HorizontalAlignment="Left" Margin="143,101,0,0" VerticalAlignment="Top" Width="205"/>
+        <Label x:Name="label_Copy" Content="Customer" HorizontalAlignment="Left" Margin="27,19,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbox_cust" HorizontalAlignment="Left" Margin="143,23,0,0" VerticalAlignment="Top" Width="120" Loaded="cbox_cust_Loaded"/>
+        <Label x:Name="label" Content="(e.g. dd/MM/yyyy)" HorizontalAlignment="Left" Margin="143,112,0,0" VerticalAlignment="Top" Width="205"/>
         <Label x:Name="label1" Content="Guests:" HorizontalAlignment="Left" Margin="27,163,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtbx_guestname" HorizontalAlignment="Left" Height="23" Margin="143,196,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205"/>
         <TextBox x:Name="txtbx_guestpass" HorizontalAlignment="Left" Height="23" Margin="143,224,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205"/>
@@ -24,7 +24,7 @@
         <Label x:Name="label1_Copy2" Content="Age" HorizontalAlignment="Left" Margin="27,247,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btn_addguest" Content="Add guest" HorizontalAlignment="Left" Margin="273,288,0,0" VerticalAlignment="Top" Width="75" Click="btn_addguest_Click"/>
         <Separator HorizontalAlignment="Left" Height="23" Margin="0,140,0,0" VerticalAlignment="Top" Width="390"/>
-        <ListBox x:Name="lstbx_guests" HorizontalAlignment="Left" Height="186" Margin="27,324,0,0" VerticalAlignment="Top" Width="321"/>
+        <ListBox x:Name="lstbx_guests" HorizontalAlignment="Left" Height="129" Margin="27,338,0,0" VerticalAlignment="Top" Width="321"/>
 
     </Grid>
 </Window>

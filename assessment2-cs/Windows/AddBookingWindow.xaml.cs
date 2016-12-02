@@ -93,7 +93,16 @@ namespace assessment2_cs
                 MessageBox.Show(ex.Message);
                 return;
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("Dates are not in the right format.");
+                return;
+            }
             lstbx_guests.Items.Add(g.ToString());
+            MessageBox.Show("Guest added successfully.");
+            txtbx_guestname.Clear();
+            txtbx_guestpass.Clear();
+            txtbx_guestage.Clear();
         }
     }
 }

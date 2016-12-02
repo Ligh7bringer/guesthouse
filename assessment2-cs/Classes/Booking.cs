@@ -32,6 +32,12 @@ namespace assessment2_cs
             this.hasCustomer = c;
         }
 
+        public List<Guest> Guests
+        {
+            set { guests = value; }
+            get { return guests; }
+        }
+
         public int RefNum
         {
             get { return refnum; }
@@ -73,7 +79,7 @@ namespace assessment2_cs
                 qInsert.Parameters.AddWithValue("departd", departdate);
                 qInsert.Parameters.AddWithValue("cust_ref", hasCustomer.Refnumber);
                 var id = qInsert.ExecuteScalar();
-                foreach (var guest in guests)
+                foreach (Guest guest in guests)
                 {
                     guest.BookingRef = Convert.ToInt32(id);
                     guest.AddToDB();
@@ -112,15 +118,16 @@ namespace assessment2_cs
         public List<Booking> GetBookings()
         {
             List<Booking> bookings = new List<Booking>();
-            string query = "SELECT * FROM booking JOIN customer ON booking.cust_ref=customer.reference_num";
+            string query = "SELECT booking.reference_num, arrival_date, departure_date, cust_ref, name, address FROM booking JOIN customer ON booking.cust_ref=customer.reference_num";
             try
             {
                 con.OpenConnection();
                 SqlDataReader sdr = con.DataReader(query);
-                while(sdr.Read())
+                while (sdr.Read())
                 {
                     Booking b = new Booking();
                     Customer c = new Customer();
+                    Guest g = new Guest();
                     c.Name = sdr["name"].ToString();
                     c.Address = sdr["address"].ToString();
                     c.Refnumber = Int32.Parse(sdr["cust_ref"].ToString());
@@ -128,19 +135,24 @@ namespace assessment2_cs
                     b.ArrivalDate = Convert.ToDateTime(sdr["arrival_date"]);
                     b.DepartDate = Convert.ToDateTime(sdr["departure_date"]);
                     b.RefNum = Int32.Parse(sdr["reference_num"].ToString());
+                    foreach (var guest in g.GetGuests(b.RefNum))
+                    {
+                        b.AddGuest(guest);
+                    }
                     bookings.Add(b);
                 }
                 sdr.Close();
-            } 
+            
+            }
             catch (SqlException ex)
             {
                 throw ex;
-            } 
+            }
             finally
             {
                 con.CloseConnection();
             }
-            return bookings;           
+            return bookings;
         }
 
         public void Update()
@@ -153,7 +165,7 @@ namespace assessment2_cs
                 qUpdate.Parameters.AddWithValue("arrd", arrivaldate);
                 qUpdate.Parameters.AddWithValue("depd", departdate);
                 qUpdate.Parameters.AddWithValue("refnum", refnum);
-                qUpdate.ExecuteNonQuery();
+                qUpdate.ExecuteNonQuery();             
             }
             catch (SqlException ex)
             {
@@ -171,6 +183,10 @@ namespace assessment2_cs
             con.OpenConnection();
             try
             {
+                foreach (var guest in guests)
+                {
+                    guest.RemoveFromDB();
+                }
                 SqlCommand qUpdate = new SqlCommand(query, con.Con);
                 qUpdate.Parameters.AddWithValue("refnum", refnum);
                 qUpdate.ExecuteNonQuery();

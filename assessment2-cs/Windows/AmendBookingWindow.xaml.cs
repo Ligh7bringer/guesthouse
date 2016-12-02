@@ -34,12 +34,12 @@ namespace assessment2_cs
             try
             {
                 bookings = b.GetBookings();
-                for (int i = 0; i < bookings.Count; i++)
+                foreach (var booking in bookings)
                 {
-                    cbox_booking.Items.Add(bookings[i].ToString());
+                    cbox_booking.Items.Add(booking.ToString());
                 }
             }
-            catch (ArgumentException ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -47,6 +47,8 @@ namespace assessment2_cs
 
         private void cbox_booking_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            cbox_guest.Items.Clear();
+            Guest g = new Guest();
             bookings = b.GetBookings();
             string s = cbox_booking.SelectedValue.ToString();
             var result = s.Split(new char[] { ' ', '-' });
@@ -57,8 +59,15 @@ namespace assessment2_cs
                     b = search;
                 }
             }
+
             txtbox_arrivald.Text = b.ArrivalDate.ToString("dd/MM/yyyy");
             txtbx_dapartd.Text = b.DepartDate.ToString("dd/MM/yyyy");
+           
+            //MessageBox.Show(b.RefNum.ToString());
+            foreach (var tmp in b.Guests)
+            {
+                cbox_guest.Items.Add(tmp.Name);
+            }
         }
 
         private void btn_save_Click(object sender, RoutedEventArgs e)
@@ -97,6 +106,44 @@ namespace assessment2_cs
             }
             MessageBox.Show("Booking successfully removed.");
             this.Close();
+        }
+
+
+        Guest selected = new Guest();
+        private void cbox_guest_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ( cbox_guest.SelectedIndex == -1)
+            {
+                return;
+            }
+            selected = b.Guests.Find(x => x.Name == cbox_guest.SelectedValue.ToString());
+            txtbox_guestname.Text = selected.Name;
+            txtbx_passno.Text = selected.PassportNo;
+            txtbox_age.Text = selected.Age.ToString();
+        }
+
+        private void btn_amendguest_Click(object sender, RoutedEventArgs e)
+        {            
+            try
+            {
+                cbox_guest.SelectedIndex = -1;
+                cbox_guest.Items.Remove(selected.Name);
+                selected.Name = txtbox_guestname.Text;
+                selected.PassportNo = txtbx_passno.Text;
+                selected.Age = Convert.ToInt32(txtbox_age.Text);
+                selected.UpdateGuest();
+                cbox_guest.Items.Add(selected.Name);
+                cbox_guest.Items.Refresh();
+                txtbox_age.Clear();
+                txtbox_guestname.Clear();
+                txtbx_passno.Clear();
+            } 
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+            MessageBox.Show("Guest details successfuly amended.");
         }
     }
 }
