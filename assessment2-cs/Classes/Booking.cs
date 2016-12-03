@@ -1,4 +1,5 @@
-﻿using System;
+﻿using assessment2_cs.Classes;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace assessment2_cs
         private Customer hasCustomer;
         private List<Guest> guests = new List<Guest>();
         private DbConnection con = new DbConnection();
+        List<Booking> bookings = new List<Booking>();
+        private List<Extra> extras = new List<Extra>();
 
         public Booking() { }
          
@@ -66,6 +69,12 @@ namespace assessment2_cs
         {
             get { return custref; }
             set { custref = value; }
+        }
+
+        public List<Extra> Extras
+        {
+            get { return extras; }
+            set { extras = value;}
         }
 
         public void AddToDB()
@@ -117,7 +126,6 @@ namespace assessment2_cs
 
         public List<Booking> GetBookings()
         {
-            List<Booking> bookings = new List<Booking>();
             string query = "SELECT booking.reference_num, arrival_date, departure_date, cust_ref, name, address FROM booking JOIN customer ON booking.cust_ref=customer.reference_num";
             try
             {
@@ -138,11 +146,9 @@ namespace assessment2_cs
                     foreach (var guest in g.GetGuests(b.RefNum))
                     {
                         b.AddGuest(guest);
-                    }
-                    bookings.Add(b);
+                    }                
                 }
-                sdr.Close();
-            
+                sdr.Close();            
             }
             catch (SqlException ex)
             {
@@ -205,9 +211,10 @@ namespace assessment2_cs
             }
         }
 
+
         public override string ToString()
         {
-            return hasCustomer.Name + " " + arrivaldate.ToString("dd/MM/yyyy") + "-" + departdate.Date.ToString("dd/MM/yyyy");
+            return refnum + ": " + hasCustomer.Name + " " + arrivaldate.ToString("dd/MM/yyyy") + "-" + departdate.Date.ToString("dd/MM/yyyy");
         }
     }
 }

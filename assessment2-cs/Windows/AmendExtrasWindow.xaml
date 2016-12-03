@@ -1,0 +1,16 @@
+﻿<Window x:Class="assessment2_cs.AmendExtrasWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:assessment2_cs"
+        mc:Ignorable="d"
+        Title="AmendExtrasWindow" Height="500" Width="400">
+    <Grid>
+        <Label x:Name="label_Copy5" Content="Booking" HorizontalAlignment="Left" Margin="27,30,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbox_booking" HorizontalAlignment="Left" Margin="143,34,0,0" VerticalAlignment="Top" Width="205" Loaded="cbox_booking_Loaded" SelectionChanged="cbox_booking_SelectionChanged"/>
+        <Label x:Name="lbl_extrasnum" Content="" HorizontalAlignment="Left" Margin="87,68,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy" Content="Meals" HorizontalAlignment="Left" Margin="27,127,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbox_meals" HorizontalAlignment="Left" Margin="143,131,0,0" VerticalAlignment="Top" Width="205"/>
+    </Grid>
+</Window>

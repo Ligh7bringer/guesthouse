@@ -55,6 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Windows\AmendExtrasWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddExtrasWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\AddBookingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -75,6 +83,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Windows\AmendExtrasWindow.xaml.cs">
+      <DependentUpon>AmendExtrasWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\CarHire.cs" />
+    <Compile Include="Classes\Extra.cs" />
+    <Compile Include="Classes\Meal.cs" />
+    <Compile Include="Windows\AddExtrasWindow.xaml.cs">
+      <DependentUpon>AddExtrasWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AddBookingWindow.xaml.cs">
       <DependentUpon>AddBookingWindow.xaml</DependentUpon>
     </Compile>

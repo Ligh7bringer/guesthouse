@@ -20,3 +20,7 @@ C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\Wind
 C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\Windows\AddCustomerWindow.baml
 C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\Windows\AmendBookingWindow.baml
 C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\Windows\AmendCustomerWindow.baml
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\Windows\AddExtrasWindow.g.cs
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\Windows\AddExtrasWindow.baml
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\Windows\AmendExtrasWindow.g.cs
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\Windows\AmendExtrasWindow.baml

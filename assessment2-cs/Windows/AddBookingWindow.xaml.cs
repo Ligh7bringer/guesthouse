@@ -22,6 +22,7 @@ namespace assessment2_cs
     /// </summary>
     public partial class AddBookingWindow : Window
     {
+        
         public AddBookingWindow()
         {
             InitializeComponent();
@@ -31,6 +32,7 @@ namespace assessment2_cs
         List<Customer> customers = new List<Customer>();
         Booking b = new Booking();
         DbConnection con = new DbConnection();
+
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {            
             try
@@ -54,11 +56,21 @@ namespace assessment2_cs
             }
             catch (FormatException)
             {
-                MessageBox.Show("Dates supplied are in a wrong format. Please use dd/MM/yyyy or yyyy-MM-dd");
+                MessageBox.Show("Entered dates are in a wrong format. Please use dd/MM/yyyy or yyyy-MM-dd.");
                 return;
             }           
             MessageBox.Show("Booking added successfully.");
-            this.Close();
+            MessageBoxResult result = MessageBox.Show("Would you like to add any extras?", "Extras", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                AddExtrasWindow addExtras = new AddExtrasWindow(1);
+                this.Close();
+                addExtras.ShowDialog();
+            }
+            else
+            {
+                this.Close();
+            }
         }
 
         private void cbox_cust_Loaded(object sender, RoutedEventArgs e)
@@ -66,9 +78,9 @@ namespace assessment2_cs
             try
             {
                 customers = c.GetCustomers();
-                for (int i = 0; i < customers.Count; i++)
+                foreach (var c_ in customers)
                 {
-                    cbox_cust.Items.Add(customers[i].Name);
+                    cbox_cust.Items.Add(c_.Name);
                 }
             }
             catch (SqlException ex)

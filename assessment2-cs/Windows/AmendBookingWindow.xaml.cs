@@ -15,9 +15,8 @@ using System.Windows.Shapes;
 
 namespace assessment2_cs
 {
-    /// <summary>
-    /// Interaction logic for AmendBookingWindow.xaml
-    /// </summary>
+    
+    /// TODO: Add a guest to an existing booking
     public partial class AmendBookingWindow : Window
     {
         public AmendBookingWindow()
@@ -48,18 +47,11 @@ namespace assessment2_cs
         private void cbox_booking_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cbox_guest.Items.Clear();
-            Guest g = new Guest();
-            bookings = b.GetBookings();
+            int search = 0;
             string s = cbox_booking.SelectedValue.ToString();
-            var result = s.Split(new char[] { ' ', '-' });
-            foreach (var search in bookings)
-            {
-                if(search.GetCustomerName() == result[0] + " " + result[1] && search.ArrivalDate.ToString("dd/MM/yyyy") == result[2] && search.DepartDate.ToString("dd/MM/yyyy") == result[3])
-                {
-                    b = search;
-                }
-            }
-
+            var result = s.Split(new char[] { ':' });
+            search = Convert.ToInt32(result[0]);
+            b = b.GetBookings().Find(x => x.RefNum == search);
             txtbox_arrivald.Text = b.ArrivalDate.ToString("dd/MM/yyyy");
             txtbx_dapartd.Text = b.DepartDate.ToString("dd/MM/yyyy");
             lbl_numofguests.Content = "Selected booking has " + b.Guests.Count + " guests.";

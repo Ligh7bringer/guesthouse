@@ -48,5 +48,17 @@ namespace assessment2_cs
             AmendBookingWindow amendBooking = new AmendBookingWindow();
             amendBooking.ShowDialog();
         }
+
+        private void btn_addextras_Click(object sender, RoutedEventArgs e)
+        {
+            AddExtrasWindow addExtrasWin = new AddExtrasWindow(0);
+            addExtrasWin.ShowDialog();
+        }
+
+        private void btn_amendextras_Click(object sender, RoutedEventArgs e)
+        {
+            AmendExtrasWindow amendExtrasWind = new AmendExtrasWindow();
+            amendExtrasWind.ShowDialog();
+        }
     }
 }
