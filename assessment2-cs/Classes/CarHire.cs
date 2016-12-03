@@ -51,8 +51,8 @@ namespace assessment2_cs.Classes
             {
                 con.OpenConnection();
                 SqlCommand qInsert = new SqlCommand(query, con.Con);
-                qInsert.Parameters.AddWithValue("startd", startdate.ToString("dd/MM/yyyy"));
-                qInsert.Parameters.AddWithValue("endd", enddate.ToString("dd/MM/yyyy"));
+                qInsert.Parameters.AddWithValue("startd", startdate);
+                qInsert.Parameters.AddWithValue("endd", enddate);
                 qInsert.Parameters.AddWithValue("bref", this.BookingRef);
                 qInsert.Parameters.AddWithValue("driver", driver);
                 qInsert.ExecuteNonQuery();

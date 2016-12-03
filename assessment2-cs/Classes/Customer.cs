@@ -156,8 +156,7 @@ namespace assessment2_cs
 
         public override string ToString()
         {
-            string s = name + "( " + address + ")";
-            return s;
+            return refnumber + ": " + name + ", " + address;
         }
 
     }

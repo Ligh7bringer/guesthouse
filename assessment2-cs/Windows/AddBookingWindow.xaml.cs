@@ -38,7 +38,11 @@ namespace assessment2_cs
             try
             {
                 customers = c.GetCustomers();
-                c = customers.Find(x => x.Name == cbox_cust.SelectedValue.ToString());
+                int search = 0;
+                string s = cbox_cust.SelectedValue.ToString();
+                var id = s.Split(new char[] { ':' });
+                search = Convert.ToInt32(id[0]);
+                c = customers.Find(x => x.Refnumber == search);
                 b.ArrivalDate = Convert.ToDateTime(txtbox_arrivald.Text);
                 b.DepartDate = Convert.ToDateTime(txtbx_dapartd.Text);
                 b.AddCustomer(c);
@@ -80,7 +84,7 @@ namespace assessment2_cs
                 customers = c.GetCustomers();
                 foreach (var c_ in customers)
                 {
-                    cbox_cust.Items.Add(c_.Name);
+                    cbox_cust.Items.Add(c_.ToString());
                 }
             }
             catch (SqlException ex)

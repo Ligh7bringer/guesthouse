@@ -35,7 +35,7 @@ namespace assessment2_cs
                 customers = c.GetCustomers();
                 for (int i = 0; i < customers.Count; i++)
                 {                    
-                    cbox_cust.Items.Add(customers[i].Name);
+                    cbox_cust.Items.Add(customers[i].ToString());
                 }
             } 
             catch (SqlException ex)
@@ -51,7 +51,11 @@ namespace assessment2_cs
             try
             {
                 customers = c.GetCustomers();
-                c = customers.Find(x => x.Name == cbox_cust.SelectedValue.ToString());
+                int search = 0;
+                string s = cbox_cust.SelectedValue.ToString();
+                var result = s.Split(new char[] { ':' });
+                search = Convert.ToInt32(result[0]);
+                c = customers.Find(x => x.Refnumber == search);
                 this.txtbox_name.Text = c.Name;
                 this.txtbx_address.Text = c.Address;
                 refnum = c.Refnumber;

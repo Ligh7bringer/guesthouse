@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace assessment2_cs
 {
-    
+
     /// TODO: Add a guest to an existing booking
     public partial class AmendBookingWindow : Window
     {
@@ -24,8 +24,8 @@ namespace assessment2_cs
             InitializeComponent();
         }
 
-        Booking b = new Booking();       
-        List<Booking> bookings = new List<Booking>();        
+        Booking b = new Booking();
+        List<Booking> bookings = new List<Booking>();
         Customer c = new Customer();
 
         private void cbox_booking_Loaded(object sender, RoutedEventArgs e)
@@ -55,7 +55,7 @@ namespace assessment2_cs
             txtbox_arrivald.Text = b.ArrivalDate.ToString("dd/MM/yyyy");
             txtbx_dapartd.Text = b.DepartDate.ToString("dd/MM/yyyy");
             lbl_numofguests.Content = "Selected booking has " + b.Guests.Count + " guests.";
-           
+
             //MessageBox.Show(b.RefNum.ToString());
             foreach (var tmp in b.Guests)
             {
@@ -74,7 +74,7 @@ namespace assessment2_cs
                 b.ArrivalDate = Convert.ToDateTime(txtbox_arrivald.Text);
                 b.DepartDate = Convert.ToDateTime(txtbx_dapartd.Text);
                 b.Update();
-            } 
+            }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
@@ -109,7 +109,7 @@ namespace assessment2_cs
         Guest selected = new Guest();
         private void cbox_guest_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if ( cbox_guest.SelectedIndex == -1)
+            if (cbox_guest.SelectedIndex == -1)
             {
                 return;
             }
@@ -120,7 +120,7 @@ namespace assessment2_cs
         }
 
         private void btn_amendguest_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             try
             {
                 b.Guests.Remove(selected);
@@ -135,7 +135,7 @@ namespace assessment2_cs
                 txtbox_age.Clear();
                 txtbox_guestname.Clear();
                 txtbx_passno.Clear();
-            } 
+            }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);

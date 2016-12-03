@@ -74,7 +74,7 @@ namespace assessment2_cs
         public List<Guest> GetGuests(int bref)
         {
             con.OpenConnection();
-            
+
             string selectGuest = "SELECT * FROM guest";
             try
             {
@@ -90,7 +90,7 @@ namespace assessment2_cs
                     guests.Add(g);
                 }
                 sdr.Close();
-            } 
+            }
             catch (SqlException ex)
             {
                 throw ex;

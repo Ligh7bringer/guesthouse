@@ -1,5 +1,4 @@
-﻿using assessment2_cs.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -19,11 +18,9 @@ namespace assessment2_cs
         private Customer hasCustomer;
         private List<Guest> guests = new List<Guest>();
         private DbConnection con = new DbConnection();
-        List<Booking> bookings = new List<Booking>();
-        private List<Extra> extras = new List<Extra>();
 
         public Booking() { }
-         
+
         public Booking(DateTime arrd, DateTime depd)
         {
             arrivaldate = arrd;
@@ -46,7 +43,7 @@ namespace assessment2_cs
             get { return refnum; }
             set { refnum = value; }
         }
-        
+
         public DateTime ArrivalDate
         {
             get { return arrivaldate; }
@@ -71,12 +68,6 @@ namespace assessment2_cs
             set { custref = value; }
         }
 
-        public List<Extra> Extras
-        {
-            get { return extras; }
-            set { extras = value;}
-        }
-
         public void AddToDB()
         {
             string query = "INSERT INTO booking (arrival_date, departure_date, cust_ref) OUTPUT Inserted.reference_num VALUES (@arrivald, @departd, @cust_ref)";
@@ -84,7 +75,7 @@ namespace assessment2_cs
             try
             {
                 SqlCommand qInsert = new SqlCommand(query, con.Con);
-                qInsert.Parameters.AddWithValue("arrivald",arrivaldate);
+                qInsert.Parameters.AddWithValue("arrivald", arrivaldate);
                 qInsert.Parameters.AddWithValue("departd", departdate);
                 qInsert.Parameters.AddWithValue("cust_ref", hasCustomer.Refnumber);
                 var id = qInsert.ExecuteScalar();
@@ -111,7 +102,7 @@ namespace assessment2_cs
 
         public void AddGuest(Guest g)
         {
-            if(guests.Count > 3)
+            if (guests.Count > 3)
             {
                 ArgumentException ex = new ArgumentException("Only 4 guests are allowed per booking");
                 throw ex;
@@ -120,12 +111,13 @@ namespace assessment2_cs
         }
 
         public string GetCustomerName()
-        {            
-            return this.hasCustomer.Name;            
+        {
+            return this.hasCustomer.Name;
         }
 
         public List<Booking> GetBookings()
         {
+            List<Booking> bookings = new List<Booking>();
             string query = "SELECT booking.reference_num, arrival_date, departure_date, cust_ref, name, address FROM booking JOIN customer ON booking.cust_ref=customer.reference_num";
             try
             {
@@ -146,9 +138,11 @@ namespace assessment2_cs
                     foreach (var guest in g.GetGuests(b.RefNum))
                     {
                         b.AddGuest(guest);
-                    }                
+                    }
+                    bookings.Add(b);
                 }
-                sdr.Close();            
+                sdr.Close();
+
             }
             catch (SqlException ex)
             {
@@ -175,7 +169,7 @@ namespace assessment2_cs
                 qUpdate.Parameters.AddWithValue("arrd", arrivaldate);
                 qUpdate.Parameters.AddWithValue("depd", departdate);
                 qUpdate.Parameters.AddWithValue("refnum", refnum);
-                qUpdate.ExecuteNonQuery();             
+                qUpdate.ExecuteNonQuery();
             }
             catch (SqlException ex)
             {
@@ -211,12 +205,9 @@ namespace assessment2_cs
             }
         }
 
-
         public override string ToString()
         {
             return refnum + ": " + hasCustomer.Name + " " + arrivaldate.ToString("dd/MM/yyyy") + "-" + departdate.Date.ToString("dd/MM/yyyy");
         }
     }
 }
-
-

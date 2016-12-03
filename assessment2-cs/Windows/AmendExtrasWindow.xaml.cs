@@ -53,10 +53,10 @@ namespace assessment2_cs
             var result = s.Split(new char[] { ':' });
             search = Convert.ToInt32(result[0]);
             b = b.GetBookings().Find(x => x.RefNum == search);
-            foreach (var tmp in b.Extras)
-            {
-                cbox_meals.Items.Add(tmp.Type);
-            }
+            //foreach (var tmp in b.Extras)
+            //{
+            //    cbox_meals.Items.Add(tmp.Type);
+           // }
         }
     }
 }
