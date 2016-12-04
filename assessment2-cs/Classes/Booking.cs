@@ -1,4 +1,5 @@
-﻿using System;
+﻿using assessment2_cs.Classes;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -17,9 +18,16 @@ namespace assessment2_cs
         private int custref;
         private Customer hasCustomer;
         private List<Guest> guests = new List<Guest>();
+        private List<Extra> extras = new List<Extra>();
         private DbConnection con = new DbConnection();
 
         public Booking() { }
+
+        public List<Extra> Extras
+        {
+            get { return extras; }
+            set { extras = value; }
+        }
 
         public Booking(DateTime arrd, DateTime depd)
         {
@@ -128,16 +136,21 @@ namespace assessment2_cs
                     Booking b = new Booking();
                     Customer c = new Customer();
                     Guest g = new Guest();
+                    Extra e = new Extra();
                     c.Name = sdr["name"].ToString();
                     c.Address = sdr["address"].ToString();
                     c.Refnumber = Int32.Parse(sdr["cust_ref"].ToString());
                     b.AddCustomer(c);
                     b.ArrivalDate = Convert.ToDateTime(sdr["arrival_date"]);
                     b.DepartDate = Convert.ToDateTime(sdr["departure_date"]);
-                    b.RefNum = Int32.Parse(sdr["reference_num"].ToString());
+                    b.RefNum = Int32.Parse(sdr["reference_num"].ToString());                    
                     foreach (var guest in g.GetGuests(b.RefNum))
                     {
                         b.AddGuest(guest);
+                    }
+                    foreach (var extra_ in e.GetExtras(b.RefNum))
+                    {
+                        b.AddExtra(extra_);
                     }
                     bookings.Add(b);
                 }
@@ -203,6 +216,11 @@ namespace assessment2_cs
             {
                 con.CloseConnection();
             }
+        }
+
+        public void AddExtra(Extra e_)
+        {
+            this.extras.Add(e_);
         }
 
         public override string ToString()

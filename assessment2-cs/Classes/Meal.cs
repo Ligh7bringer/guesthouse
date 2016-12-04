@@ -10,15 +10,7 @@ namespace assessment2_cs.Classes
     class Meal : Extra
     {
         private string dietreq;
-        private int id;
         private DbConnection con = new DbConnection();
-
-
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
 
         public string DietReq
         {
@@ -47,6 +39,26 @@ namespace assessment2_cs.Classes
                 con.CloseConnection();
             }
         }
-    }
-    
+
+        public override void Update()
+        {
+            string query = "UPDATE extra_meals SET dietary_requirements=@dietreq WHERE id=@id";
+            con.OpenConnection();
+            try
+            {
+                SqlCommand qUpdate = new SqlCommand(query, con.Con);
+                qUpdate.Parameters.AddWithValue("dietreq", dietreq);
+                qUpdate.Parameters.AddWithValue("id", this.Id);
+                qUpdate.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.CloseConnection();
+            }
+        }
+    }    
 }

@@ -7,13 +7,19 @@ using System.Data.SqlClient;
 
 namespace assessment2_cs.Classes
 {
-    abstract class Extra
+    class Extra
     {
-
+        private int id;
         private string type;
         private int bookingref;
         DbConnection con = new DbConnection();
         List<Extra> extras = new List<Extra>();
+        
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
 
         public string Type
         {
@@ -36,13 +42,13 @@ namespace assessment2_cs.Classes
         {
             con.OpenConnection();
 
-            string selectGuest = "SELECT * FROM extra_meals; SELECT * FROM extra_carhires";
+            string selectExtras = "SELECT * FROM extra_meals";
             try
             {
-                SqlDataReader sdr = con.DataReader(selectGuest);
-                while (sdr.Read() && Convert.ToInt32(sdr["booking_ref"]) == bref)
+                SqlDataReader sdr = con.DataReader(selectExtras);
+                while (sdr.Read())
                 {
-                    if(sdr["type"].ToString() == "Evening meals" || sdr["type"].ToString() == "Breakfast meals")
+                    if (Convert.ToInt32(sdr["bookingref"]) == bref)
                     {
                         Meal meal = new Meal();
                         meal.Type = sdr["type"].ToString();
@@ -50,18 +56,25 @@ namespace assessment2_cs.Classes
                         meal.BookingRef = Convert.ToInt32(sdr["bookingref"]);
                         meal.DietReq = sdr["dietary_requirements"].ToString();
                         extras.Add(meal);
-                    }
-                    else
+                    }           
+                }
+                sdr.Close();
+
+                string selectCarhires = "SELECT * FROM extra_carhires";
+                sdr = con.DataReader(selectCarhires);
+                while(sdr.Read())
+                {
+                    if (Convert.ToInt32(sdr["bookingref"]) == bref)
                     {
                         CarHire carhire = new CarHire();
-                        carhire.Id = Convert.ToInt32(sdr["id"]);
+                        carhire.BookingRef = Convert.ToInt32(sdr["bookingref"]);
                         carhire.StartDate = Convert.ToDateTime(sdr["start_date"]);
                         carhire.EndDate = Convert.ToDateTime(sdr["end_date"]);
                         carhire.Driver = sdr["driver"].ToString();
+                        carhire.Id = Convert.ToInt32(sdr["id"]);
                         extras.Add(carhire);
                     }
                 }
-                sdr.Close();
             }
             catch (SqlException ex)
             {
@@ -72,6 +85,39 @@ namespace assessment2_cs.Classes
                 con.CloseConnection();
             }
             return extras;
+        }
+
+        public void RemoveFromDB()
+        {
+            string query;
+            if (type == "Evening meals" || type == "Breakfast meals")
+            {
+                query = "DELETE FROM extras_meals WHERE id=@id";
+            } 
+            else
+            {
+                query = "DELETE FROM extras_carhires WHERE id=@id";
+            }
+            con.OpenConnection();
+            try
+            {
+                SqlCommand qDelete = new SqlCommand(query, con.Con);
+                qDelete.Parameters.AddWithValue("id", id);
+                qDelete.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.CloseConnection();
+            }
+        }
+
+        public virtual void Update()
+        {
+            //to be overriden
         }
     }
 }

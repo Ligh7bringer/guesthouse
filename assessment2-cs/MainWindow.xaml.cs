@@ -51,7 +51,7 @@ namespace assessment2_cs
 
         private void btn_addextras_Click(object sender, RoutedEventArgs e)
         {
-            AddExtrasWindow addExtrasWin = new AddExtrasWindow(0);
+            AddExtrasWindow addExtrasWin = new AddExtrasWindow(0, 0);
             addExtrasWin.ShowDialog();
         }
 

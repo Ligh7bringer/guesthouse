@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using assessment2_cs.Classes;
 
 namespace assessment2_cs
 {
@@ -51,10 +52,7 @@ namespace assessment2_cs
             try
             {
                 customers = c.GetCustomers();
-                int search = 0;
-                string s = cbox_cust.SelectedValue.ToString();
-                var result = s.Split(new char[] { ':' });
-                search = Convert.ToInt32(result[0]);
+                int search = cbox_cust.FindId();
                 c = customers.Find(x => x.Refnumber == search);
                 this.txtbox_name.Text = c.Name;
                 this.txtbx_address.Text = c.Address;

@@ -83,6 +83,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Classes\ComboBoxExtensions.cs" />
     <Compile Include="Windows\AmendExtrasWindow.xaml.cs">
       <DependentUpon>AmendExtrasWindow.xaml</DependentUpon>
     </Compile>

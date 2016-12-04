@@ -22,19 +22,23 @@ namespace assessment2_cs
     public partial class AddExtrasWindow : Window
     {
         int test = 0;
-        public AddExtrasWindow(int t)
+        int reference = 0;
+        public AddExtrasWindow(int t, int bref_)
         {
             if(t == 1)
             {
                 test = 1; 
+            }
+            if(bref_ != 0)
+            {
+                reference = bref_;
             }
             InitializeComponent();
         }
 
         Booking b = new Booking();
         List<Booking> bookings = new List<Booking>();
-        int search = 0;
-
+       
         private void cbox_booking_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -52,6 +56,11 @@ namespace assessment2_cs
             if (test == 1)
             {
                 cbox_booking.SelectedIndex = cbox_booking.Items.Count - 1;
+            }
+            if(reference != 0)
+            {
+                int index = cbox_booking.FindSubStringIndex(reference.ToString());
+                cbox_booking.SelectedIndex = index;
             }
         }
 
@@ -92,17 +101,15 @@ namespace assessment2_cs
 
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
-            int bref = Convert.ToInt32(cbox_booking.Text.ToString().Split(new char[] { ':' })[0]);
+            int bref = cbox_booking.FindId();
             if (cbox_type.SelectedIndex == 0 || cbox_type.SelectedIndex == 1)
             {
-                MessageBox.Show(bref.ToString());
                 try
                 {
                     Meal meal = new Meal();
                     meal.Type = cbox_type.SelectedValue.ToString();
                     meal.DietReq = txtbox_mealreq.Text;
                     meal.BookingRef = bref;
-                    MessageBox.Show(meal.BookingRef.ToString());
                     meal.AddToDB();
                 }
                 catch (SqlException ex)
@@ -129,7 +136,17 @@ namespace assessment2_cs
                     MessageBox.Show(ex.Message);
                     return;
                 }
-                MessageBox.Show("Extra added successfully.");
+                MessageBox.Show("Extra added successfully.");             
+            }
+            MessageBoxResult result = MessageBox.Show("Would you like to add any more extras?", "Add more extras", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                AddExtrasWindow addExtras = new AddExtrasWindow(0, bref);
+                this.Close();
+                addExtras.ShowDialog();
+            }
+            else
+            {
                 this.Close();
             }
         }

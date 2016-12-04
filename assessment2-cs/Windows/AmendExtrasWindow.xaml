@@ -5,12 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:assessment2_cs"
         mc:Ignorable="d"
-        Title="AmendExtrasWindow" Height="500" Width="400">
+        Title="AmendExtrasWindow" Height="600" Width="400">
     <Grid>
         <Label x:Name="label_Copy5" Content="Booking" HorizontalAlignment="Left" Margin="27,30,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbox_booking" HorizontalAlignment="Left" Margin="143,34,0,0" VerticalAlignment="Top" Width="205" Loaded="cbox_booking_Loaded" SelectionChanged="cbox_booking_SelectionChanged"/>
-        <Label x:Name="lbl_extrasnum" Content="" HorizontalAlignment="Left" Margin="87,68,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy" Content="Meals" HorizontalAlignment="Left" Margin="27,127,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbox_meals" HorizontalAlignment="Left" Margin="143,131,0,0" VerticalAlignment="Top" Width="205"/>
+        <ComboBox x:Name="cbox_booking" Text="Please select a booking." HorizontalAlignment="Left" Margin="117,34,0,0" VerticalAlignment="Top" Width="231" Loaded="cbox_booking_Loaded" SelectionChanged="cbox_booking_SelectionChanged"/>
+        <Label x:Name="lbl_extrasnum" Content="" HorizontalAlignment="Left" Margin="117,61,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy" Content="Meals" HorizontalAlignment="Left" Margin="27,121,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.448,1.918"/>
+        <ComboBox x:Name="cbox_meals" HorizontalAlignment="Left" Margin="117,121,0,0" VerticalAlignment="Top" Width="172" SelectionChanged="cbox_meals_SelectionChanged"/>
+        <ComboBox x:Name="cbox_carhires" HorizontalAlignment="Left" Margin="117,335,0,0" VerticalAlignment="Top" Width="172" SelectionChanged="cbox_carhires_SelectionChanged"/>
+        <Label x:Name="label_Copy1" Content="Carhires" HorizontalAlignment="Left" Margin="27,335,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtbox_dietaryreqs" HorizontalAlignment="Left" Height="72" Margin="27,176,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="321"/>
+        <Label x:Name="label" Content="Start date" HorizontalAlignment="Left" Margin="27,371,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy2" Content="End date" HorizontalAlignment="Left" Margin="27,402,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy3" Content="Driver" HorizontalAlignment="Left" Margin="27,433,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtbox_stdate" HorizontalAlignment="Left" Height="23" Margin="117,374,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="231"/>
+        <TextBox x:Name="txtbox_enddate" HorizontalAlignment="Left" Height="23" Margin="117,405,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="231"/>
+        <TextBox x:Name="txtbox_driver" HorizontalAlignment="Left" Height="23" Margin="117,436,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="231"/>
+        <Label x:Name="label_Copy4" Content="Dietary requirements" HorizontalAlignment="Left" Margin="27,152,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.448,1.918"/>
+        <Separator HorizontalAlignment="Left" Height="16" Margin="-8,87,0,0" VerticalAlignment="Top" Width="400"/>
+        <Separator HorizontalAlignment="Left" Height="16" Margin="0,300,-8,0" VerticalAlignment="Top" Width="400"/>
+        <Button x:Name="btn_amendmeal" Content="Amend" HorizontalAlignment="Left" Margin="273,264,0,0" VerticalAlignment="Top" Width="75" Click="btn_amendmeal_Click"/>
+        <Button x:Name="btn_amendcarhire" Content="Amend" HorizontalAlignment="Left" Margin="273,475,0,0" VerticalAlignment="Top" Width="75" Click="btn_amendcarhire_Click"/>
+        <Separator HorizontalAlignment="Left" Height="16" Margin="0,502,-8,0" VerticalAlignment="Top" Width="400"/>
+        <Button x:Name="btn_save" Content="Save changes" HorizontalAlignment="Left" Margin="260,523,0,0" VerticalAlignment="Top" Width="88" Height="28" RenderTransformOrigin="0.183,0.48" Click="btn_save_Click"/>
+        <Button x:Name="btn_delmeal" Content="Delete" HorizontalAlignment="Left" Margin="294,121,0,0" VerticalAlignment="Top" Width="50" Click="btn_delmeal_Click"/>
+        <Button x:Name="btn_delcarhire" Content="Delete" HorizontalAlignment="Left" Margin="294,335,0,0" VerticalAlignment="Top" Width="50" Click="btn_delcarhire_Click"/>
     </Grid>
 </Window>

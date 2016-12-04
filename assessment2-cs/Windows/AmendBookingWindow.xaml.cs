@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using assessment2_cs.Classes;
 
 namespace assessment2_cs
 {
@@ -46,17 +47,17 @@ namespace assessment2_cs
 
         private void cbox_booking_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            txtbox_age.Clear();
+            txtbox_guestname.Clear();
+            txtbx_passno.Clear();
             cbox_guest.Items.Clear();
-            int search = 0;
-            string s = cbox_booking.SelectedValue.ToString();
-            var result = s.Split(new char[] { ':' });
-            search = Convert.ToInt32(result[0]);
+
+            int search = cbox_booking.FindId();
             b = b.GetBookings().Find(x => x.RefNum == search);
             txtbox_arrivald.Text = b.ArrivalDate.ToString("dd/MM/yyyy");
             txtbx_dapartd.Text = b.DepartDate.ToString("dd/MM/yyyy");
-            lbl_numofguests.Content = "Selected booking has " + b.Guests.Count + " guests.";
-
-            //MessageBox.Show(b.RefNum.ToString());
+            lbl_numofguests.Content = "Selected booking has " + b.Guests.Count + " guest(s).";
+            
             foreach (var tmp in b.Guests)
             {
                 cbox_guest.Items.Add(tmp.Name);

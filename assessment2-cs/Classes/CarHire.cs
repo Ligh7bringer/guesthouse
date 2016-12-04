@@ -9,18 +9,11 @@ namespace assessment2_cs.Classes
 {
     class CarHire : Extra
     {
-        private int id;
         private DateTime startdate;
         private DateTime enddate;
         private string driver;
         DbConnection con = new DbConnection();
-
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
-
+        
         public DateTime StartDate
         {
             get { return startdate; }
@@ -56,6 +49,29 @@ namespace assessment2_cs.Classes
                 qInsert.Parameters.AddWithValue("bref", this.BookingRef);
                 qInsert.Parameters.AddWithValue("driver", driver);
                 qInsert.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.CloseConnection();
+            }
+        }
+
+        public override void Update()
+        {
+            string query = "UPDATE extra_carhires SET start_date=@stdate, end_date=@enddate, driver=@driver WHERE id=@id";
+            con.OpenConnection();
+            try
+            {
+                SqlCommand qUpdate = new SqlCommand(query, con.Con);
+                qUpdate.Parameters.AddWithValue("stdate", startdate);
+                qUpdate.Parameters.AddWithValue("enddate", enddate);
+                qUpdate.Parameters.AddWithValue("driver", driver);
+                qUpdate.Parameters.AddWithValue("id", this.Id);
+                qUpdate.ExecuteNonQuery();
             }
             catch (SqlException ex)
             {

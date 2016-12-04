@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
 using assessment2_cs;
+using assessment2_cs.Classes;
 using System.Globalization;
 
 namespace assessment2_cs
@@ -38,10 +39,7 @@ namespace assessment2_cs
             try
             {
                 customers = c.GetCustomers();
-                int search = 0;
-                string s = cbox_cust.SelectedValue.ToString();
-                var id = s.Split(new char[] { ':' });
-                search = Convert.ToInt32(id[0]);
+                int search = cbox_cust.FindId();
                 c = customers.Find(x => x.Refnumber == search);
                 b.ArrivalDate = Convert.ToDateTime(txtbox_arrivald.Text);
                 b.DepartDate = Convert.ToDateTime(txtbx_dapartd.Text);
@@ -67,7 +65,7 @@ namespace assessment2_cs
             MessageBoxResult result = MessageBox.Show("Would you like to add any extras?", "Extras", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                AddExtrasWindow addExtras = new AddExtrasWindow(1);
+                AddExtrasWindow addExtras = new AddExtrasWindow(1, 0);
                 this.Close();
                 addExtras.ShowDialog();
             }
