@@ -136,6 +136,11 @@ namespace assessment2_cs
                     MessageBox.Show(ex.Message);
                     return;
                 }
+                catch (ArgumentException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
                 MessageBox.Show("Extra added successfully.");             
             }
             MessageBoxResult result = MessageBox.Show("Would you like to add any more extras?", "Add more extras", MessageBoxButton.YesNo, MessageBoxImage.Question);

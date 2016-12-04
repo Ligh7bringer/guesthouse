@@ -92,11 +92,11 @@ namespace assessment2_cs.Classes
             string query;
             if (type == "Evening meals" || type == "Breakfast meals")
             {
-                query = "DELETE FROM extras_meals WHERE id=@id";
+                query = "DELETE FROM extra_meals WHERE id=@id";
             } 
             else
             {
-                query = "DELETE FROM extras_carhires WHERE id=@id";
+                query = "DELETE FROM extra_carhires WHERE id=@id";
             }
             con.OpenConnection();
             try

@@ -6,7 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-// TO DO: CLASS DESCRIPTION 
+// Author: Svetlozar Georgiev
+// Date of last modification: 4/12/2-16
+// Purpose: Allows the creation of booking objects and implements methods 
+// which 
 namespace assessment2_cs
 {
     class Booking
@@ -216,11 +219,39 @@ namespace assessment2_cs
             {
                 con.CloseConnection();
             }
+        }    
+
+        public double GenerateInvoice()
+        {
+            int nights = this.GetNights(); //to be calculated
+            double cost = 50 * nights; // because of customer. assuming customer's age is over 18
+            foreach (var guest_ in guests)
+            {
+                if(guest_.Age < 18)
+                {
+                    cost += 30 * nights;
+                }
+                else
+                {
+                    cost += 50 * nights;
+                }
+            }
+            foreach (var extra_ in extras)
+            {
+                //cost += this.CalculateExtrasCost();
+            }
+            //return cost  
+            return 0;      
         }
 
         public void AddExtra(Extra e_)
         {
-            this.extras.Add(e_);
+            extras.Add(e_);
+        }
+
+        public int GetNights()
+        {
+            return 0;
         }
 
         public override string ToString()
