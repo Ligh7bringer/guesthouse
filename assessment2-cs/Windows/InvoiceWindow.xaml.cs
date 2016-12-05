@@ -50,7 +50,7 @@ namespace assessment2_cs.Windows
             {
                 if (extra_.Type == "Evening meals" || extra_.Type == "Breakfast meals")
                 {
-                    double extracost = extra_.Cost * nights;     
+                    double extracost = extra_.Cost * (b.Guests.Count + 1) * nights;     
                     lbl_invoice.Content += extra_.Type + ": £" + extracost + "\n";
                 }
                 else if(extra_.Type == "Car hire")
