@@ -33,11 +33,7 @@ namespace assessment2_cs
         {
             try
             {
-                bookings = b.GetBookings();
-                foreach (var booking in bookings)
-                {
-                    cbox_booking.Items.Add(booking.ToString());
-                }
+                cbox_booking.LoadBookings();
             }
             catch (SqlException ex)
             {

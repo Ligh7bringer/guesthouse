@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using assessment2_cs.Windows;
 
 namespace assessment2_cs
 {
@@ -59,6 +60,12 @@ namespace assessment2_cs
         {
             AmendExtrasWindow amendExtrasWind = new AmendExtrasWindow();
             amendExtrasWind.ShowDialog();
+        }
+
+        private void btn_invoice_Click(object sender, RoutedEventArgs e)
+        {
+            InvoiceWindow invoiceWin = new InvoiceWindow();
+            invoiceWin.ShowDialog();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace assessment2_cs.Classes
 {
     class Meal : Extra
     {
-        private string dietreq;
+        private string dietreq;       
         private DbConnection con = new DbConnection();
 
         public string DietReq

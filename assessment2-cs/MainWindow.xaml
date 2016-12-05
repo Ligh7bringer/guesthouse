@@ -7,15 +7,17 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="600">
     <Grid>
-        <Button x:Name="btn_addbooking" Content="Add a booking" HorizontalAlignment="Left" Margin="127,218,0,0" VerticalAlignment="Top" Width="111" Height="60" Click="btn_addbooking_Click"/>
-        <Button x:Name="btn_amenbooking_Copy" Content="Amend a booking" HorizontalAlignment="Left" Margin="330,218,0,0" VerticalAlignment="Top" Width="111" Height="60" Click="btn_amenbooking_Copy_Click"/>
-        <Button x:Name="btn_addcust" Content="Add a customer" HorizontalAlignment="Left" Margin="127,77,0,0" VerticalAlignment="Top" Width="111" Height="60" Click="btn_addcust_Click"/>
-        <Button x:Name="btn_amendcust" Content="Amend customer &#13;&#10;         details" HorizontalAlignment="Left" Margin="330,77,0,0" VerticalAlignment="Top" Width="111" Height="60" Click="btn_amendcust_Click"/>
-        <Label x:Name="label" Content="Bookings:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,178,0,0"/>
-        <Label x:Name="label1" Content="Customers:" HorizontalAlignment="Left" Margin="127,28,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btn_addextras" Content="Add extras to &#13;&#10;   a booking" HorizontalAlignment="Left" Margin="127,375,0,0" VerticalAlignment="Top" Width="111" Height="60" Click="btn_addextras_Click"/>
-        <Label x:Name="label_Copy" Content="Extras:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,335,0,0"/>
-        <Button x:Name="btn_amendextras" Content="Amend extras" HorizontalAlignment="Left" Margin="330,375,0,0" VerticalAlignment="Top" Width="111" Height="60" Click="btn_amendextras_Click"/>
+        <Button x:Name="btn_addbooking" Content="Add a booking" HorizontalAlignment="Left" Margin="127,182,0,0" VerticalAlignment="Top" Width="111" Height="60" Click="btn_addbooking_Click"/>
+        <Button x:Name="btn_amenbooking_Copy" Content="Amend a booking" HorizontalAlignment="Left" Margin="371,182,0,0" VerticalAlignment="Top" Width="111" Height="60" Click="btn_amenbooking_Copy_Click"/>
+        <Button x:Name="btn_addcust" Content="Add a customer" HorizontalAlignment="Left" Margin="127,51,0,0" VerticalAlignment="Top" Width="111" Height="60" Click="btn_addcust_Click"/>
+        <Button x:Name="btn_amendcust" Content="Amend customer &#13;&#10;         details" HorizontalAlignment="Left" Margin="371,51,0,0" VerticalAlignment="Top" Width="111" Height="60" Click="btn_amendcust_Click"/>
+        <Label x:Name="label" Content="Bookings:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,152,0,0"/>
+        <Label x:Name="label1" Content="Customers:" HorizontalAlignment="Left" Margin="127,19,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btn_addextras" Content="Add extras to &#13;&#10;   a booking" HorizontalAlignment="Left" Margin="127,318,0,0" VerticalAlignment="Top" Width="111" Height="60" Click="btn_addextras_Click"/>
+        <Label x:Name="label_Copy" Content="Extras:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,287,0,0"/>
+        <Button x:Name="btn_amendextras" Content="Amend extras" HorizontalAlignment="Left" Margin="371,318,0,0" VerticalAlignment="Top" Width="111" Height="60" Click="btn_amendextras_Click"/>
+        <Label x:Name="label_Copy1" Content="Invoices:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="127,429,0,0"/>
+        <Button x:Name="btn_invoice" Content="Generate an invoice" HorizontalAlignment="Left" Margin="127,460,0,0" VerticalAlignment="Top" Width="111" Height="60" Click="btn_invoice_Click"/>
     </Grid>
 </Window>
    

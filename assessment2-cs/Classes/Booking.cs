@@ -224,7 +224,7 @@ namespace assessment2_cs
         public double GenerateInvoice()
         {
             int nights = this.GetNights(); //to be calculated
-            double cost = 50 * nights; // because of customer. assuming customer's age is over 18
+            double cost = 50 * nights; // because of customer. assuming a customer's age is always over 18
             foreach (var guest_ in guests)
             {
                 if(guest_.Age < 18)
@@ -236,12 +236,9 @@ namespace assessment2_cs
                     cost += 50 * nights;
                 }
             }
-            foreach (var extra_ in extras)
-            {
-                //cost += this.CalculateExtrasCost();
-            }
-            //return cost  
-            return 0;      
+            cost += this.GetMealsCost();
+            cost += this.GetCarhiresCost();
+            return cost;      
         }
 
         public void AddExtra(Extra e_)
@@ -251,7 +248,33 @@ namespace assessment2_cs
 
         public int GetNights()
         {
-            return 0;
+            return (departdate.Date - arrivaldate.Date).Days;
+        }
+
+        public double GetCarhiresCost()
+        {
+            double cost = 0;
+            foreach (Extra extra_ in extras)
+            {
+                if (extra_.Type == "Carhire")
+                { 
+                    cost += extra_.Cost * extra_.GetDays();
+                }
+            }            
+            return cost;
+        }
+
+        public double GetMealsCost()
+        {
+            double cost = 0;
+            foreach (Extra extra_ in extras)
+            {
+                if (extra_.Type != "Carhire")
+                {
+                    cost += extra_.Cost * this.GetNights();
+                }
+            }
+            return cost;
         }
 
         public override string ToString()

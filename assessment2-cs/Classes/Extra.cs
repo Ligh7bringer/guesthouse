@@ -12,9 +12,29 @@ namespace assessment2_cs.Classes
         private int id;
         private string type;
         private int bookingref;
+        private double cost;
         DbConnection con = new DbConnection();
         List<Extra> extras = new List<Extra>();
-        
+
+        public double Cost
+        {
+            get
+            {
+                if (type == "Evening meals")
+                {
+                    return 15;
+                }
+                else if(type == "Breakfast meals")
+                {
+                    return 5;
+                }
+                else
+                {
+                    return 50;
+                }
+            }
+        }
+
         public int Id
         {
             get { return id; }
@@ -118,6 +138,12 @@ namespace assessment2_cs.Classes
         public virtual void Update()
         {
             //to be overriden
+        }
+        
+        public virtual int GetDays()
+        {
+            //to be overridden
+            return 0;
         }
     }
 }

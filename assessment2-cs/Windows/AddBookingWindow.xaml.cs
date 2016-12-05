@@ -71,6 +71,7 @@ namespace assessment2_cs
             }
             else
             {
+                MessageBox.Show(b.GenerateInvoice().ToString());
                 this.Close();
             }
         }

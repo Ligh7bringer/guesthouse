@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -44,6 +45,25 @@ namespace assessment2_cs.Classes
             var result = s.Split(new char[] { ':' });
             search = Convert.ToInt32(result[0]);
             return search;
+        }
+
+        public static void LoadBookings(this ComboBox combo)
+        {
+            Booking b = new Booking();
+            List<Booking> bookings = new List<Booking>();
+            Customer c = new Customer();
+            try
+            {
+                bookings = b.GetBookings();
+                foreach (var booking in bookings)
+                {
+                    combo.Items.Add(booking.ToString());
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
         }
     }
 }

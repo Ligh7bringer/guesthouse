@@ -13,7 +13,7 @@ namespace assessment2_cs.Classes
         private DateTime enddate;
         private string driver;
         DbConnection con = new DbConnection();
-        
+
         public DateTime StartDate
         {
             get { return startdate; }
@@ -81,6 +81,11 @@ namespace assessment2_cs.Classes
             {
                 con.CloseConnection();
             }
+        }
+            
+        public override int GetDays()
+        {
+            return (enddate.Date - startdate.Date).Days;
         }
     }
 }
