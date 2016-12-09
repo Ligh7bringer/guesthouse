@@ -158,7 +158,6 @@ namespace assessment2_cs
                     bookings.Add(b);
                 }
                 sdr.Close();
-
             }
             catch (SqlException ex)
             {
@@ -275,6 +274,28 @@ namespace assessment2_cs
                 }
             }
             return cost;
+        }
+        
+        public int GetGuestsNum()
+        {
+            int result = 0;
+            string query = "SELECT COUNT(id) AS result FROM guest WHERE booking_ref=" + refnum + "GROUP BY booking_ref";
+            con.OpenConnection();
+            try
+            {
+                SqlCommand qSelect = new SqlCommand(query, con.Con);
+                qSelect.Parameters.AddWithValue("bref", bookingref);
+                result = Convert.ToInt32(qSelect.ExecuteScalar());
+            } 
+            catch(SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.CloseConnection();
+            }
+            return result;
         }
 
         public override string ToString()

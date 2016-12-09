@@ -74,19 +74,18 @@ namespace assessment2_cs
         public List<Guest> GetGuests(int bref)
         {
             con.OpenConnection();
-
-            string selectGuest = "SELECT * FROM guest";
+            string selectGuest = "SELECT * FROM guest WHERE booking_ref=" + bref;
             try
             {
                 SqlDataReader sdr = con.DataReader(selectGuest);
-                while (sdr.Read() && Convert.ToInt32(sdr["booking_ref"]) == bref)
+                while (sdr.Read())
                 {
                     Guest g = new Guest();
+                    g.BookingRef = Convert.ToInt32(sdr["booking_ref"]);
+                    g.Id = Convert.ToInt32(sdr["id"]);
                     g.Name = sdr["guest_name"].ToString();
                     g.PassportNo = sdr["passport_num"].ToString();
                     g.Age = Convert.ToInt32(sdr["age"]);
-                    g.BookingRef = Convert.ToInt32(sdr["booking_ref"]);
-                    g.Id = Convert.ToInt32(sdr["id"]);
                     guests.Add(g);
                 }
                 sdr.Close();

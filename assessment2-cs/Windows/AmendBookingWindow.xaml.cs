@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using assessment2_cs.Classes;
+using assessment2_cs.Windows;
 
 namespace assessment2_cs
 {
@@ -41,6 +42,7 @@ namespace assessment2_cs
             }
         }
 
+        private int search;
         private void cbox_booking_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             txtbox_age.Clear();
@@ -48,13 +50,12 @@ namespace assessment2_cs
             txtbx_passno.Clear();
             cbox_guest.Items.Clear();
 
-            int search = cbox_booking.FindId();
+            search = cbox_booking.FindId();
             b = b.GetBookings().Find(x => x.RefNum == search);
             txtbox_arrivald.Text = b.ArrivalDate.ToString("dd/MM/yyyy");
             txtbx_dapartd.Text = b.DepartDate.ToString("dd/MM/yyyy");
-            lbl_numofguests.Content = "Selected booking has " + b.Guests.Count + " guest(s).";
-            
-            foreach (var tmp in b.Guests)
+            lbl_numofguests.Content = "Selected booking has " + b.Guests.Count + " guest(s).";            
+            foreach (Guest tmp in b.Guests)
             {
                 cbox_guest.Items.Add(tmp.Name);
             }
@@ -82,6 +83,11 @@ namespace assessment2_cs
                 MessageBox.Show("Dates supplied are in a wrong format. Please use dd/MM/yyyy or yyyy-MM-dd");
                 return;
             }
+            catch (NullReferenceException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
             MessageBox.Show("Booking successfully amended.");
             this.Close();
         }
@@ -101,7 +107,6 @@ namespace assessment2_cs
             MessageBox.Show("Booking successfully removed.");
             this.Close();
         }
-
 
         Guest selected = new Guest();
         private void cbox_guest_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -157,6 +162,18 @@ namespace assessment2_cs
             txtbox_age.Clear();
             txtbox_guestname.Clear();
             txtbx_passno.Clear();
+        }
+
+        private void btn_addguest_Click(object sender, RoutedEventArgs e)
+        {
+            if (search == 0)
+            {
+                MessageBox.Show("Please select a booking.");
+                return;
+            }
+            AddGuestWindow addGuestWin = new AddGuestWindow(search);
+            addGuestWin.ShowDialog();
+            this.Close();
         }
     }
 }

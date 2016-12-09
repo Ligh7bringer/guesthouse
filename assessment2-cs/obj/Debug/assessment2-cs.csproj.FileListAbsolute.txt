@@ -26,3 +26,5 @@ C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\Wind
 C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\Windows\AmendExtrasWindow.baml
 C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\Windows\InvoiceWindow.g.cs
 C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\Windows\InvoiceWindow.baml
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\Windows\AddGuestWindow.g.cs
+C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\assessment2-cs\obj\Debug\Windows\AddGuestWindow.baml
