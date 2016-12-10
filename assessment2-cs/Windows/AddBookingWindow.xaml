@@ -13,7 +13,7 @@
         <Label x:Name="label_Copy2" Content="Departure date" HorizontalAlignment="Left" Margin="27,81,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btn_save" Content="Save" HorizontalAlignment="Left" Margin="273,528,0,0" VerticalAlignment="Top" Width="75" Click="btn_save_Click"/>
         <Label x:Name="label_Copy" Content="Customer" HorizontalAlignment="Left" Margin="27,19,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbox_cust" HorizontalAlignment="Left" Margin="143,23,0,0" VerticalAlignment="Top" Width="120" Loaded="cbox_cust_Loaded"/>
+        <ComboBox x:Name="cbox_cust" HorizontalAlignment="Left" Margin="143,23,0,0" VerticalAlignment="Top" Width="205" Loaded="cbox_cust_Loaded"/>
         <Label x:Name="label" Content="(e.g. dd/MM/yyyy)" HorizontalAlignment="Left" Margin="143,112,0,0" VerticalAlignment="Top" Width="205"/>
         <Label x:Name="label1" Content="Guests:" HorizontalAlignment="Left" Margin="27,163,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtbx_guestname" HorizontalAlignment="Left" Height="23" Margin="143,196,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205"/>

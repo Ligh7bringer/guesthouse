@@ -33,11 +33,7 @@ namespace assessment2_cs
         {
             try
             {
-                customers = c.GetCustomers();
-                for (int i = 0; i < customers.Count; i++)
-                {                    
-                    cbox_cust.Items.Add(customers[i].ToString());
-                }
+                cbox_cust.LoadCustomers();
             } 
             catch (SqlException ex)
             {
@@ -65,7 +61,12 @@ namespace assessment2_cs
         }
 
         private void btn_save_Click(object sender, RoutedEventArgs e)
-        {               
+        {
+            if (cbox_cust.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a customer.");
+                return;
+            }
             try
             {
                 customers = c.GetCustomers();
@@ -79,33 +80,35 @@ namespace assessment2_cs
                 MessageBox.Show("An error occured: " + ex.Message);
                 return;
             }
-            finally
-            {                
-                this.Close();
+            catch(ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
             }
-
             MessageBox.Show("Details for user successfully amended.");
+            this.Close();
         }
 
         private void btn_remove_Click(object sender, RoutedEventArgs e)
         {   
+            if (cbox_cust.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a customer.");
+                return;
+            }
             try
             {
                 customers = c.GetCustomers();
                 c = customers.Find(x => x.Refnumber == refnum);
                 c.RemoveFromDB();
             }
-            catch 
+            catch (SqlException)
             {
                 MessageBox.Show("The selected customer has a booking associated with them and cannot be deleted.");
                 return;
             }
-            finally
-            {
-                this.Close();
-            }
-
             MessageBox.Show("Customer successfully deleted.");
+            this.Close();
         }
     }
 }

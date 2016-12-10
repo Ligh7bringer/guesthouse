@@ -21,8 +21,13 @@ namespace assessment2_cs
     /// TODO: Add a guest to an existing booking
     public partial class AmendBookingWindow : Window
     {
-        public AmendBookingWindow()
+        int bref = 0;
+        public AmendBookingWindow(int bref_)
         {
+            if (bref_ != 0)
+            {
+                bref = bref_;
+            }
             InitializeComponent();
         }
 
@@ -31,7 +36,7 @@ namespace assessment2_cs
         Customer c = new Customer();
 
         private void cbox_booking_Loaded(object sender, RoutedEventArgs e)
-        {
+        { 
             try
             {
                 cbox_booking.LoadBookings();
@@ -39,6 +44,11 @@ namespace assessment2_cs
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+            if(bref != 0)
+            {
+                int index = cbox_booking.FindSubStringIndex(bref.ToString());
+                cbox_booking.SelectedIndex = index;
             }
         }
 
@@ -94,6 +104,11 @@ namespace assessment2_cs
 
         private void btn_remove_Click(object sender, RoutedEventArgs e)
         {
+            if (cbox_booking.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a booking.");
+                return;
+            }
             try
             {
                 b.RemoveFromDB();
@@ -123,6 +138,10 @@ namespace assessment2_cs
 
         private void btn_amendguest_Click(object sender, RoutedEventArgs e)
         {
+            if (cbox_guest.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a guest.");
+            }
             try
             {
                 b.Guests.Remove(selected);
@@ -154,6 +173,11 @@ namespace assessment2_cs
         List<Guest> RemovedGuests = new List<Guest>();
         private void btn_removeguest_Click(object sender, RoutedEventArgs e)
         {
+            if (cbox_guest.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a guest");
+                return;
+            }
             b.Guests.Remove(selected);
             cbox_guest.SelectedIndex = -1;
             cbox_guest.Items.Remove(selected.Name);
@@ -166,13 +190,23 @@ namespace assessment2_cs
 
         private void btn_addguest_Click(object sender, RoutedEventArgs e)
         {
+            if (b.Guests.Count == 4)
+            {
+                MessageBox.Show("This booking already has 4 guests.");
+                return;
+            }
             if (search == 0)
             {
                 MessageBox.Show("Please select a booking.");
                 return;
             }
             AddGuestWindow addGuestWin = new AddGuestWindow(search);
+            this.Close();
             addGuestWin.ShowDialog();
+        }
+
+        private void btn_cancel_Click(object sender, RoutedEventArgs e)
+        {
             this.Close();
         }
     }

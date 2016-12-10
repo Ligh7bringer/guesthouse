@@ -15,7 +15,15 @@ namespace assessment2_cs.Classes
         public string DietReq
         {
             get { return dietreq; }
-            set { dietreq = value; }
+            set
+            {
+                if(String.IsNullOrEmpty(value))
+                {
+                    ArgumentException ex = new ArgumentException("Please enter the dietary requirements.");
+                    throw ex;
+                }
+                dietreq = value;
+            }
         }
 
         public override void AddToDB()

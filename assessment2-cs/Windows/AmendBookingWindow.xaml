@@ -14,7 +14,7 @@
         <Label x:Name="label" Content="(e.g. dd/MM/yyyy)" HorizontalAlignment="Left" Margin="149,131,0,0" VerticalAlignment="Top" Width="205"/>
         <Button x:Name="btn_remove" Content="Delete" HorizontalAlignment="Left" Margin="297,42,0,0" VerticalAlignment="Top" Width="57" Click="btn_remove_Click" RenderTransformOrigin="0.893,0.409"/>
         <Label x:Name="label_Copy5" Content="Booking" HorizontalAlignment="Left" Margin="33,38,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btn_save" Content="Save changes" HorizontalAlignment="Left" Margin="270,523,0,0" VerticalAlignment="Top" Width="84" RenderTransformOrigin="3.724,0.57" Click="btn_save_Click" Height="28"/>
+        <Button x:Name="btn_save" Content="Save changes" HorizontalAlignment="Left" Margin="270,515,0,0" VerticalAlignment="Top" Width="84" RenderTransformOrigin="3.724,0.57" Click="btn_save_Click" Height="28"/>
         <ComboBox x:Name="cbox_booking" HorizontalAlignment="Left" Margin="149,42,0,0" VerticalAlignment="Top" Width="143" Loaded="cbox_booking_Loaded" SelectionChanged="cbox_booking_SelectionChanged"/>
         <ComboBox x:Name="cbox_guest" HorizontalAlignment="Left" Margin="149,270,0,0" VerticalAlignment="Top" Width="114" SelectionChanged="cbox_guest_SelectionChanged"/>
         <Label x:Name="label_Copy" Content="Name" HorizontalAlignment="Left" Margin="33,301,0,0" VerticalAlignment="Top"/>
@@ -30,6 +30,7 @@
         <Button x:Name="btn_removeguest" Content="Remove guest" HorizontalAlignment="Left" Margin="270,270,0,0" VerticalAlignment="Top" Width="84" Height="22" Click="btn_removeguest_Click"/>
         <Separator HorizontalAlignment="Left" Height="17" Margin="0,479,0,0" VerticalAlignment="Top" Width="392"/>
         <Button x:Name="btn_addguest" Content="add a guest" HorizontalAlignment="Left" Margin="279,193,0,0" VerticalAlignment="Top" Width="75" Click="btn_addguest_Click"/>
+        <Button x:Name="btn_cancel" Content="Cancel" HorizontalAlignment="Left" Margin="33,515,0,0" VerticalAlignment="Top" Width="84" RenderTransformOrigin="3.724,0.57" Click="btn_cancel_Click" Height="28"/>
 
     </Grid>
 </Window>

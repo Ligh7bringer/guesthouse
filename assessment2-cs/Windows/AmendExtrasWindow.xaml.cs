@@ -88,6 +88,11 @@ namespace assessment2_cs
         List<Meal> DeletedMeals = new List<Meal>();
         private void btn_delmeal_Click(object sender, RoutedEventArgs e)
         {
+            if (cbox_meals.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select an extra.");
+                return;
+            }
             b.Extras.Remove(meal);
             cbox_meals.SelectedIndex = -1;
             cbox_meals.Items.Remove(meal.Type);
@@ -99,6 +104,11 @@ namespace assessment2_cs
         List<CarHire> DeletedCarhires = new List<CarHire>();
         private void btn_delcarhire_Click(object sender, RoutedEventArgs e)
         {
+            if (cbox_carhires.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select an extra.");
+                return;
+            }
             b.Extras.Remove(carhire);
             cbox_carhires.SelectedIndex = -1;
             cbox_carhires.Items.Remove(carhire.Type);
@@ -111,6 +121,11 @@ namespace assessment2_cs
 
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
+            if (cbox_booking.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a booking.");
+                return;
+            }
             try
             {
                 foreach (var meal_ in DeletedMeals)
@@ -137,15 +152,28 @@ namespace assessment2_cs
 
         private void btn_amendcarhire_Click(object sender, RoutedEventArgs e)
         {
-            b.Extras.Remove(carhire);
-            carhire.StartDate = Convert.ToDateTime(txtbox_stdate.Text);
-            carhire.EndDate = Convert.ToDateTime(txtbox_enddate.Text);
-            carhire.Driver = txtbox_driver.Text;
-            b.AddExtra(carhire);
-            cbox_carhires.SelectedIndex = -1;
-            txtbox_stdate.Clear();
-            txtbox_enddate.Clear();
-            txtbox_driver.Clear();
+            try
+            {
+                b.Extras.Remove(carhire);
+                carhire.StartDate = Convert.ToDateTime(txtbox_stdate.Text);
+                carhire.EndDate = Convert.ToDateTime(txtbox_enddate.Text);
+                carhire.Driver = txtbox_driver.Text;
+                b.AddExtra(carhire);
+                cbox_carhires.SelectedIndex = -1;
+                txtbox_stdate.Clear();
+                txtbox_enddate.Clear();
+                txtbox_driver.Clear();
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Please enter valid values for start and end date.");
+                return;
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
             MessageBox.Show("Details of extra successfully amended.");
         }
 
@@ -157,6 +185,11 @@ namespace assessment2_cs
             cbox_meals.SelectedIndex = -1;
             txtbox_dietaryreqs.Clear();
             MessageBox.Show("Details of extra successfully amended.");
+        }
+
+        private void btn_cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

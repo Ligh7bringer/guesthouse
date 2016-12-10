@@ -106,9 +106,15 @@ namespace assessment2_cs
                     meal.Type = cbox_type.SelectedValue.ToString();
                     meal.DietReq = txtbox_mealreq.Text;
                     meal.BookingRef = bref;
+                    b.AddExtra(meal);
                     meal.AddToDB();
                 }
                 catch (SqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+                catch(ArgumentException ex)
                 {
                     MessageBox.Show(ex.Message);
                     return;
@@ -124,7 +130,18 @@ namespace assessment2_cs
                     carhire.StartDate = Convert.ToDateTime(txtbox_startdate.Text);
                     carhire.EndDate = Convert.ToDateTime(txtbox_enddate.Text);
                     carhire.Driver = txtbox_driver.Text;
-                    carhire.BookingRef = bref;
+                    carhire.BookingRef = bref;       
+                    if (carhire.StartDate.Date < b.ArrivalDate.Date)
+                    {
+                        MessageBox.Show("Car hire start date must be later than the booking's arrival date.");
+                        return;
+                    }          
+                    if (carhire.EndDate.Date > b.DepartDate.Date)
+                    {
+                        MessageBox.Show("Car hire end date must be earlier than the booking's departure date.");
+                        return;
+                    }
+                    b.AddExtra(carhire);
                     carhire.AddToDB();
                 }
                 catch (SqlException ex)
@@ -135,6 +152,11 @@ namespace assessment2_cs
                 catch (ArgumentException ex)
                 {
                     MessageBox.Show(ex.Message);
+                    return;
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Please enter valid values for start and end date.");
                     return;
                 }
                 MessageBox.Show("Extra added successfully.");             
@@ -154,7 +176,9 @@ namespace assessment2_cs
 
         private void cbox_booking_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //asd
+            int bref = cbox_booking.FindId();
+            bookings = b.GetBookings();
+            b = bookings.Find(x => x.RefNum == bref);
         }
     }
 }

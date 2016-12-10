@@ -30,5 +30,6 @@
         <Button x:Name="btn_save" Content="Save changes" HorizontalAlignment="Left" Margin="260,523,0,0" VerticalAlignment="Top" Width="88" Height="28" RenderTransformOrigin="0.183,0.48" Click="btn_save_Click"/>
         <Button x:Name="btn_delmeal" Content="Delete" HorizontalAlignment="Left" Margin="294,121,0,0" VerticalAlignment="Top" Width="50" Click="btn_delmeal_Click"/>
         <Button x:Name="btn_delcarhire" Content="Delete" HorizontalAlignment="Left" Margin="294,335,0,0" VerticalAlignment="Top" Width="50" Click="btn_delcarhire_Click"/>
+        <Button x:Name="btn_cancel" Content="Cancel" HorizontalAlignment="Left" Margin="27,523,0,0" VerticalAlignment="Top" Width="88" Height="28" RenderTransformOrigin="0.183,0.48" Click="btn_cancel_Click"/>
     </Grid>
 </Window>

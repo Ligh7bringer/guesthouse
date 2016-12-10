@@ -46,7 +46,7 @@ namespace assessment2_cs
 
         private void btn_amenbooking_Copy_Click(object sender, RoutedEventArgs e)
         {
-            AmendBookingWindow amendBooking = new AmendBookingWindow();
+            AmendBookingWindow amendBooking = new AmendBookingWindow(0);
             amendBooking.ShowDialog();
         }
 

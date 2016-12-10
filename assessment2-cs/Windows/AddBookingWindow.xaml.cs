@@ -61,6 +61,11 @@ namespace assessment2_cs
                 MessageBox.Show("Entered dates are in a wrong format. Please use dd/MM/yyyy or yyyy-MM-dd.");
                 return;
             }           
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
             MessageBox.Show("Booking added successfully.");
             MessageBoxResult result = MessageBox.Show("Would you like to add any extras?", "Extras", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
@@ -79,11 +84,7 @@ namespace assessment2_cs
         {
             try
             {
-                customers = c.GetCustomers();
-                foreach (var c_ in customers)
-                {
-                    cbox_cust.Items.Add(c_.ToString());
-                }
+                cbox_cust.LoadCustomers();
             }
             catch (SqlException ex)
             {
@@ -109,7 +110,7 @@ namespace assessment2_cs
             }
             catch (FormatException)
             {
-                MessageBox.Show("Dates are not in the right format.");
+                MessageBox.Show("Please enter a value for the guest's age.");
                 return;
             }
             lstbx_guests.Items.Add(g.ToString());

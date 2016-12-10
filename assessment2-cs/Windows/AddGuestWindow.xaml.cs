@@ -36,38 +36,14 @@ namespace assessment2_cs.Windows
         {
             try
             {
-                if (b == null)
-                {
-                    ArgumentException ex = new ArgumentNullException("b is null?");
-                    throw ex;                        
-                }
-                if(g == null)
-                {
-                    ArgumentException ex = new ArgumentNullException("g is null?");
-                    throw ex;
-                }
                 bookings = b.GetBookings();
-                if (bookings == null)
-                {
-                    InvalidOperationException ex = new InvalidOperationException("bookings is null after getting booking?");
-                    throw ex;
-                }
                 b = bookings.Find(x => x.RefNum == bref);
-                if(b == null)
-                {
-                    InvalidOperationException ex = new InvalidOperationException("b is null after searching?");
-                    throw ex;
-                }
                 g.BookingRef = bref;
                 g.Name = txtbx_guestname.Text.ToString();
                 g.PassportNo = txtbx_guestpass.Text.ToString();
                 g.Age = Convert.ToInt32(txtbx_guestage.Text);            
                 b.AddGuest(g);
                 g.AddToDB();
-            }
-            catch (InvalidOperationException ex)
-            {
-                MessageBox.Show(ex.Message);
             }
             catch (SqlException ex)
             {
@@ -95,7 +71,16 @@ namespace assessment2_cs.Windows
             else
             {
                 this.Close();
+                AmendBookingWindow addBWin = new AmendBookingWindow(bref);
+                addBWin.ShowDialog();
             }
+        }
+
+        private void btn_cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            AmendBookingWindow addBWin = new AmendBookingWindow(bref);
+            addBWin.ShowDialog();
         }
     }
 }

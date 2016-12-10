@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace assessment2_cs
 {
+    /// Author: Svetlozar Georgiev
+    /// Date of last change: 4/12/2016
+    /// Purpose: allows the creation of Guest objects
     class Guest
     {
-        //properties 
+        // private properties 
         private int bookingref;
         private String name;
         private string passportno;
@@ -17,6 +20,14 @@ namespace assessment2_cs
         private int id;
         private DbConnection con = new DbConnection();
         private List<Guest> guests = new List<Guest>();
+
+        public Guest() { }
+
+        public Guest(string name_, int age_)
+        {
+            age = age_;
+            name = name_;
+        }
 
         public int BookingRef
         {
@@ -27,19 +38,52 @@ namespace assessment2_cs
         public String Name
         {
             get { return name; }
-            set { name = value; }
+            set
+            {
+                if(String.IsNullOrEmpty(value))
+                {
+                    ArgumentException ex = new ArgumentException("Please enter a name for the guest.");
+                    throw ex;
+                }
+                else
+                {
+                    name = value;
+                }
+            }
         }
 
         public string PassportNo
         {
             get { return passportno; }
-            set { passportno = value; }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    ArgumentException ex = new ArgumentException("Please enter a passport number for the guest.");
+                    throw ex;
+                }
+                else
+                {
+                    passportno = value;
+                }
+            }
         }
 
         public int Age
         {
             get { return age; }
-            set { age = value; }
+            set
+            {
+                if (value < 0 || value > 101)
+                {
+                    ArgumentException ex = new ArgumentException("Please enter a valid value for the age of guest in the range 0-101.");
+                    throw ex;
+                }
+                else
+                {
+                    age = value;
+                }
+            }
         }
 
         public int Id
