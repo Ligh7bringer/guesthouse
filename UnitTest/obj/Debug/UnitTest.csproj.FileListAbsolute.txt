@@ -1,8 +1,0 @@
-C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\UnitTest\bin\Debug\UnitTest.dll
-C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\UnitTest\bin\Debug\UnitTest.pdb
-C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\UnitTest\bin\Debug\assessment2-cs.exe
-C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\UnitTest\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
-C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\UnitTest\bin\Debug\assessment2-cs.pdb
-C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\UnitTest\obj\Debug\UnitTest.csprojResolveAssemblyReference.cache
-C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\UnitTest\obj\Debug\UnitTest.dll
-C:\Users\Svetlozar Georgiev\Desktop\assessment2-cs\UnitTest\obj\Debug\UnitTest.pdb
